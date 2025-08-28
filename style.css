@@ -466,18 +466,11 @@ h2::after {
 
 /* About Section */
 .about-grid {
-/*     display: grid;
+    display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 4rem;
-    align-items: center; */
+    align-items: center;
 
-    background: var(--black);
-    color: var(--yellow);
-    padding: 1.5rem;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 4px 4px 0 var(--dark-gray);
-    transition: transform 0.3s ease;
 }
 
 .about-text p {
