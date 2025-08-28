@@ -62,41 +62,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="about-image"><pre><code>
-from itertools import cycle
-
-class Resilience:
-    def __init__(self):
-        self.energy = 0
-        self.hope = 1.0
-
-    def refill_coffee(self):
-        self.energy += 1
-
-    def take_step(self):
-        if self.energy &gt; 0:
-            self.energy -= 1
-            self.hope *= 1.01
-            return "moved"
-        return "rest"
-
-def daily_routine():
-    you = Resilience()
-    coffee_cycle = cycle(['espresso', 'latte', 'black'])
-
-    for day in range(1, 9999):
-        next(coffee_cycle)
-        you.refill_coffee()
-        result = you.take_step()
-
-        if result == "moved":
-            print(f"Day {day}: one step forward")
-        else:
-            print(f"Day {day}: recharge and try again")
-
-daily_routine()
-</code></pre>
-</div>
             </div>
         </div>
     </section>
