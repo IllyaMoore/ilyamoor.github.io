@@ -477,7 +477,6 @@ h2::after {
     color: var(--dark-gray);
     margin-bottom: 2rem;
     line-height: 1.7;
-    align-items: center;
 }
 
 .stats {
