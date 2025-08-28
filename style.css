@@ -474,6 +474,8 @@ h2::after {
 }
 
 .about-text p {
+    text-align: center;
+    grid-column: 1 / -1;
     font-size: 1.2rem;
     color: var(--dark-gray);
     margin-bottom: 2rem;
