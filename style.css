@@ -467,7 +467,7 @@ h2::after {
 /* About Section */
 .about-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr;
     gap: 4rem;
     align-items: center;
 
