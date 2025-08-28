@@ -466,17 +466,10 @@ h2::after {
 
 /* About Section */
 .about-grid {
-    display: grid;
+/*     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 4rem;
-    align-items: center;
-}
-
-.about-text p {
-/*     font-size: 1.2rem;
-    color: var(--dark-gray);
-    margin-bottom: 2rem;
-    line-height: 1.7; */
+    align-items: center; */
 
     background: var(--black);
     color: var(--yellow);
@@ -485,6 +478,13 @@ h2::after {
     text-align: center;
     box-shadow: 4px 4px 0 var(--dark-gray);
     transition: transform 0.3s ease;
+}
+
+.about-text p {
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+    margin-bottom: 2rem;
+    line-height: 1.7;
 }
 
 .stats {
