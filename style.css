@@ -473,10 +473,18 @@ h2::after {
 }
 
 .about-text p {
-    font-size: 1.2rem;
+/*     font-size: 1.2rem;
     color: var(--dark-gray);
     margin-bottom: 2rem;
-    line-height: 1.7;
+    line-height: 1.7; */
+
+    background: var(--black);
+    color: var(--yellow);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 4px 4px 0 var(--dark-gray);
+    transition: transform 0.3s ease;
 }
 
 .stats {
