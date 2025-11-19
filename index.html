@@ -240,20 +240,58 @@
     </section>
 
     <section id="contact">
-        <div class="section-content">
-            <h2>Bloge</h2>
-            <div class="contact-content">
-                <div class="contact-info">
+    <div class="section-content">
+        <h2>Bloge</h2>
 
-                    
+        <div class="blog-grid" style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        ">
 
+            <!-- BLOG TILE 1 -->
+            <a href="blog1.html" class="blog-tile" style="
+                display: block;
+                background: #232323;
+                border: 2px solid #E6FF00;
+                border-radius: 16px;
+                padding: 20px;
+                text-decoration: none;
+                color: #E6FF00;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            "
+            onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0 18px #E6FF00';"
+            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"
+            >
+                <h3 style="margin-bottom: 10px;">The Way of Kings – Review</h3>
+                <p style="color: #CCCCCC;">Discovering Brandon Sanderson and his worldbuilding.</p>
+            </a>
 
-                    
-                    
-                </div>
-            </div>
+            <!-- BLOG TILE 2 -->
+            <a href="blog2.html" class="blog-tile" style="
+                display: block;
+                background: #232323;
+                border: 2px solid #E6FF00;
+                border-radius: 16px;
+                padding: 20px;
+                text-decoration: none;
+                color: #E6FF00;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            "
+            onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0 18px #E6FF00';"
+            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"
+            >
+                <h3 style="margin-bottom: 10px;">Words of Radiance – Review</h3>
+                <p style="color: #CCCCCC;">Coming soon.</p>
+            </a>
+
         </div>
-    </section>
+    </div>
+</section>
+
+
+
 
     <footer>
         <div class="contact-methods" style="color: #E6FF00; text-align: left;;">
