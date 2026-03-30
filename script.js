@@ -7,8 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initButtonEffects();
     initFormSubmission();
-    createFloatingElements();
-    initCursorTrail();
+    initActiveNav();
+    initScrollHint();
+    initLightbox();
 });
 
 // Burger menu functionality
@@ -70,15 +71,13 @@ function initHeaderScrollEffect() {
     if (header) {
         window.addEventListener('scroll', () => {
             const currentScrollY = window.scrollY;
-            
+
             if (currentScrollY > 100) {
-                header.style.background = 'rgba(230, 255, 0, 0.98)';
-                header.style.backdropFilter = 'blur(20px)';
+                header.style.background = 'rgba(10, 10, 10, 0.97)';
             } else {
-                header.style.background = 'rgba(230, 255, 0, 0.95)';
-                header.style.backdropFilter = 'blur(20px)';
+                header.style.background = 'rgba(10, 10, 10, 0.92)';
             }
-            
+
             lastScrollY = currentScrollY;
         });
     }
@@ -105,7 +104,7 @@ function initScrollAnimations() {
     }, observerOptions);
 
     // Animate elements on scroll with different effects
-    const animateElements = document.querySelectorAll('.skill-card, .project-card, .stat, .about-text, .contact-info, .contact-form');
+    const animateElements = document.querySelectorAll('.skill-card, .project-card, .featured-card, .stat, .about-text, .contact-info, .contact-form');
 
     animateElements.forEach((el, index) => {
         el.style.opacity = '0';
@@ -263,46 +262,31 @@ function createFloatingElements() {
     }
 }
 
-// Mouse follow effect
-function initCursorTrail() {
-    let mouseX = 0;
-    let mouseY = 0;
+// Active nav highlighting based on scroll position
+function initActiveNav() {
+    var navLinks = document.querySelectorAll('nav a[href^="#"]');
+    var sections = [];
 
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+    navLinks.forEach(function(link) {
+        var id = link.getAttribute('href').substring(1);
+        var section = document.getElementById(id);
+        if (section) sections.push({ el: section, link: link });
     });
 
-    // Create cursor trail on mouse move
-    document.addEventListener('mousemove', createCursorTrail);
-}
+    function update() {
+        var scrollY = window.scrollY + 200;
+        var current = null;
 
-// Create cursor trail
-function createCursorTrail() {
-    const trail = document.createElement('div');
-    trail.style.position = 'fixed';
-    trail.style.left = event.clientX + 'px';
-    trail.style.top = event.clientY + 'px';
-    trail.style.width = '4px';
-    trail.style.height = '4px';
-    trail.style.backgroundColor = 'rgba(51, 51, 51, 0.3)';
-    trail.style.borderRadius = '50%';
-    trail.style.pointerEvents = 'none';
-    trail.style.zIndex = '9999';
-    trail.style.transition = 'all 0.5s ease';
-    
-    document.body.appendChild(trail);
-    
-    // Remove trail element after animation
-    setTimeout(() => {
-        trail.style.opacity = '0';
-        trail.style.transform = 'scale(0)';_
-        setTimeout(() => {
-            if (trail.parentNode) {
-                trail.remove();
-            }
-        }, 500);
-    }, 100);
+        sections.forEach(function(s) {
+            if (s.el.offsetTop <= scrollY) current = s;
+        });
+
+        navLinks.forEach(function(link) { link.classList.remove('active'); });
+        if (current) current.link.classList.add('active');
+    }
+
+    window.addEventListener('scroll', update);
+    update();
 }
 
 // Logo click effect
@@ -320,29 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Add some interactive effects to skill and project cards
 document.addEventListener('DOMContentLoaded', function() {
-    // Skill cards hover effect
-    document.querySelectorAll('.skill-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.03)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-
-    // Project cards hover effect
-    document.querySelectorAll('.project-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translate(-4px, -4px)';
-            this.style.boxShadow = '10px 10px 0 var(--black)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translate(0, 0)';
-            this.style.boxShadow = '6px 6px 0 var(--black)';
-        });
-    });
+    // Card hover effects handled by CSS
 });
 
 // Keyboard navigation support
@@ -359,6 +321,42 @@ document.addEventListener('keydown', function(e) {
         }
     }
 });
+
+// Scroll hint arrow - hide on first scroll
+function initScrollHint() {
+    const hint = document.getElementById('scrollHint');
+    if (!hint) return;
+
+    function hide() {
+        hint.classList.add('hidden');
+        window.removeEventListener('scroll', hide);
+    }
+
+    window.addEventListener('scroll', hide);
+}
+
+// Lightbox for featured images
+function initLightbox() {
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    if (!lightbox || !lightboxImg) return;
+
+    document.querySelectorAll('.featured-img').forEach(function(img) {
+        img.addEventListener('click', function() {
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('active');
+        });
+    });
+
+    lightbox.addEventListener('click', function() {
+        lightbox.classList.remove('active');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') lightbox.classList.remove('active');
+    });
+}
 
 // Smooth reveal on page load
 window.addEventListener('load', function() {

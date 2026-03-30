@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="scanlines"></div>
     <header>
         <div class="container">
             <div class="logo">Homeless Wizard</div>
             <nav>
                 <a href="#home">Home</a>
-                <a href="#about">About</a>
                 <a href="#skills">Skills</a>
                 <a href="#projects">Projects</a>
                 <a href="#contact">Bloge</a>
@@ -26,10 +26,20 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <h1 class="hero-title">Developer and Engineer</h1>
-            <p class="hero-subtitle">A dead-simple CV by Homeless Wizard</p>
-            
+            <p class="hero-subtitle">A dead-simple CV</p>
+
             <div class="code-block">
-                <div class="code-line removed" style="color: #E6FF00;">+ name: Ilya</div>
+                <div class="code-line"><span class="prompt">$</span> whoami</div>
+                <div class="code-line output">Illia Nanarov</div>
+                <div class="code-line"><span class="prompt">$</span> cat about.txt</div>
+                <div class="code-line output">A passion toward AI, DevOps and MLOps-based applications.</div>
+                <div class="code-line output">Building practical projects: AI-driven tools & automation systems.</div>
+                <div class="code-line"><span class="prompt">$</span> cat education.txt</div>
+                <div class="code-line output">National University of Kyiv-Mohyla Academy — ML/AI</div>
+                <div class="code-line"><span class="prompt">$</span> ls skills/</div>
+                <div class="code-line output">ML/AI &nbsp; Automation &nbsp; Full-Stack &nbsp; DevOps</div>
+                <div class="code-line"><span class="prompt">$</span> cat status.txt</div>
+                <div class="code-line output" style="color: #90EE90;">Open to collaborate</div>
             </div>
 
             <div class="hero-buttons">
@@ -39,26 +49,6 @@
         </div>
     </section>
 
-<section id="about">
-  <div class="section-content">
-    <h2>About Me</h2>
-
-    <div class="about-grid" style="display: flex; align-items: center; justify-content: center; gap: 60px; flex-wrap: wrap;">
-      
-      <div class="about-photo">
-        <img src="images/turtle.jpg" alt="My photo"
-             style="width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 3px solid var(--dark-gray);">
-      </div>
-
-      <div class="about-text about-image" style="max-width: 600px; height: auto; padding: 2rem;">
-        <p style="color: #E6FF00; text-align: left;">- A simple ordinary human with a huge passion toward AI and other models.</p>
-        <p style="color: #E6FF00; text-align: left;">- I focus on developing practical projects that combine these fields, such as AI-driven tools and automation systems.</p style="color: #E6FF00;">
-        <p style="color: #E6FF00; text-align: left;">- Currently a student at the National University of Kyiv-Mohyla Academy, working toward ML/AI.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 
 
@@ -68,40 +58,150 @@
             <div class="skills-grid">
                 <div class="skill-card">
                     <div class="skill-header">
-                        <h3>Main tools</h3>
+                        <h3>Frontend</h3>
+                    </div>
+                    <div class="skill-list">
+                        <span>React</span>
+                        <span>Next.js</span>
+                        <span>TypeScript</span>
+                        <span>Tailwind CSS</span>
+                        <span>Radix UI</span>
+                        <span>Framer Motion</span>
+                        <span>HTML / CSS / JS</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <h3>Backend</h3>
+                    </div>
+                    <div class="skill-list">
+                        <span>Node.js</span>
+                        <span>Supabase</span>
+                        <span>SQLite</span>
+                        <span>PostgreSQL</span>
+                        <span>REST API</span>
+                        <span>MCP</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <h3>AI / ML</h3>
                     </div>
                     <div class="skill-list">
                         <span>Python</span>
-                        <span>C++(basics)</span>
-                        <span>Jupyter Notebook</span>
-                        <span>NumPy</span>
-                        <span>Pandas</span>
-                        <span>scikit-learn</span>
-                        <span>matplotlib / seaborn</span>
                         <span>PyTorch</span>
-                        <span>TorchVision</span>
+                        <span>scikit-learn</span>
+                        <span>NumPy / Pandas</span>
+                        <span>OpenAI API</span>
+                        <span>Claude Agent SDK</span>
+                        <span>Jupyter Notebook</span>
                     </div>
                 </div>
-                
+
                 <div class="skill-card">
                     <div class="skill-header">
-                        <h3>Just tools</h3>
+                        <h3>DevOps / Tools</h3>
                     </div>
                     <div class="skill-list">
                         <span>Git</span>
-                        <span>PostgreSQL</span>
-                        <span>Hardware understanding</span>
+                        <span>Docker</span>
                         <span>Linux</span>
-                        <span>English B2</span>
+                        <span>GitHub Actions</span>
+                        <span>Vite</span>
+                        <span>Vitest / Playwright</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <section id="featured-work">
+        <div class="section-content">
+            <h2>Featured Work</h2>
+            <div class="featured-grid">
+
+                <!-- StoryFunnels -->
+                <div class="featured-card">
+                    <div class="featured-images">
+                        <img src="projectIMGs/photo_2_2026-03-30_16-37-33.jpg" alt="StoryFunnels landing page" class="featured-img">
+                        <img src="projectIMGs/photo_3_2026-03-30_16-37-33.jpg" alt="StoryFunnels task management" class="featured-img">
+                    </div>
+                    <div class="featured-body">
+                        <div class="featured-header">
+                            <h3>StoryFunnels</h3>
+                            <span class="project-status">In Development</span>
+                        </div>
+                        <p class="featured-role">Co-developer (Task Management Module)</p>
+                        <p>AI-powered marketing automation platform with 33+ modules — from funnel building and email campaigns to social media scheduling and ad management. Includes a full kanban task management system, AI assistant workspace, and content creation tools.</p>
+                        <div class="project-tech">
+                            <span>React</span>
+                            <span>TypeScript</span>
+                            <span>Supabase</span>
+                            <span>Tailwind CSS</span>
+                            <span>OpenAI API</span>
+                            <span>Vite</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Command Center -->
+                <div class="featured-card">
+                    <div class="featured-images">
+                        <img src="projectIMGs/photo_1_2026-03-30_16-37-33.jpg" alt="Command Center dashboard" class="featured-img">
+                        <img src="projectIMGs/photo_2026-03-30_17-06-26.jpg" alt="Command Center chat with AI assistant" class="featured-img">
+                    </div>
+                    <div class="featured-body">
+                        <div class="featured-header">
+                            <h3>Command Center</h3>
+                            <span class="project-status">In Development</span>
+                        </div>
+                        <p class="featured-role">Solo developer</p>
+                        <p>Personal AI assistant platform that connects Claude AI to WhatsApp and Telegram. Features multi-agent management with isolated sessions, scheduled task automation, Google Workspace integration (Calendar, Gmail, Drive), and a real-time web dashboard — all running in secure Docker containers.</p>
+                        <div class="project-tech">
+                            <span>Node.js</span>
+                            <span>TypeScript</span>
+                            <span>Claude Agent SDK</span>
+                            <span>Next.js</span>
+                            <span>SQLite</span>
+                            <span>Docker</span>
+                            <span>MCP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CI/CD Pipeline -->
+                <div class="featured-card">
+                    <div class="featured-images">
+                        <img src="projectIMGs/photo_2026-03-30_16-53-46.jpg" alt="CI/CD pipeline diagram" class="featured-img featured-img-contain">
+                    </div>
+                    <div class="featured-body">
+                        <div class="featured-header">
+                            <h3>CI/CD Pipeline</h3>
+                            <span class="project-status">Implemented</span>
+                        </div>
+                        <p class="featured-role">DevOps Engineer — StoryFunnels</p>
+                        <p>Full CI/CD pipeline with four phases: pre-commit hooks (ESLint, Prettier, smoke E2E), pre-push checks (TS build, unit tests, local AI code review), CI pipeline (E2E Playwright, coverage gate at 30%+, TS types check), and automated AI-powered code review using specialized agents for bugs, security, test coverage gaps, and type design.</p>
+                        <div class="project-tech">
+                            <span>GitHub Actions</span>
+                            <span>Husky</span>
+                            <span>Playwright</span>
+                            <span>Vitest</span>
+                            <span>ESLint</span>
+                            <span>Claude Code</span>
+                            <span>lint-staged</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <section id="projects">
         <div class="section-content">
-            <h2>Some pet projects</h2>
+            <h2>Learning projects</h2>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-header">
@@ -243,49 +343,15 @@
     <div class="section-content">
         <h2>Bloge</h2>
 
-        <div class="blog-grid" style="
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        ">
-
-            <!-- BLOG TILE 1 -->
-            <a href="TheWayOfKings.html" class="blog-tile" style="
-                display: block;
-                background: #232323;
-                border: 2px solid #E6FF00;
-                border-radius: 16px;
-                padding: 20px;
-                text-decoration: none;
-                color: #E6FF00;
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            "
-            onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0 18px #E6FF00';"
-            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"
-            >
-                <h3 style="margin-bottom: 10px;">The Way of Kings – Review</h3>
-                <p style="color: #CCCCCC;">Discovering Brandon Sanderson and his worldbuilding.</p>
+        <div class="blog-grid">
+            <a href="TheWayOfKings.html" class="blog-tile">
+                <h3>The Way of Kings – Review</h3>
+                <p>Discovering Brandon Sanderson and his worldbuilding.</p>
             </a>
-
-            <!-- BLOG TILE 2 -->
-            <a href="WordsOfRadiance.html" class="blog-tile" style="
-                display: block;
-                background: #232323;
-                border: 2px solid #E6FF00;
-                border-radius: 16px;
-                padding: 20px;
-                text-decoration: none;
-                color: #E6FF00;
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            "
-            onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0 18px #E6FF00';"
-            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"
-            >
-                <h3 style="margin-bottom: 10px;">Words of Radiance – Review</h3>
-                <p style="color: #CCCCCC;">Continuing with a series.</p>
+            <a href="WordsOfRadiance.html" class="blog-tile">
+                <h3>Words of Radiance – Review</h3>
+                <p>Continuing with a series.</p>
             </a>
-
         </div>
     </div>
 </section>
@@ -294,17 +360,30 @@
 
 
     <footer>
-        <div class="contact-methods" style="color: #E6FF00; text-align: left;;">
-            <div class="contact-method">
-                <span class="method-label" style="color: #E6FF00; text-align: center;">Email:</span>
-                <span class="method-value" style="color: #E6FF00; text-align: center;">i.nanarov@ukma.edu.ua</span>
-            </div>
-            <div class="contact-method">
-                <span  class="method-label" style="color: #E6FF00; text-align: center;">GitHub:</span>
-                <span class="method-value" style="color: #E6FF00; text-align: center;">https://github.com/IllyaMoore</span>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="mailto:i.nanarov@ukma.edu.ua" class="footer-link">
+                    <span class="footer-label">Email</span>
+                    <span class="footer-value">i.nanarov@ukma.edu.ua</span>
+                </a>
+                <a href="https://github.com/IllyaMoore" target="_blank" rel="noopener noreferrer" class="footer-link">
+                    <span class="footer-label">GitHub</span>
+                    <span class="footer-value">IllyaMoore</span>
+                </a>
             </div>
         </div>
     </footer>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    </div>
+
+    <div class="scroll-hint" id="scrollHint">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+    </div>
 
     <script src="script.js"></script>
 </body>
