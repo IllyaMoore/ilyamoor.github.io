@@ -1,369 +1,444 @@
-// DOM Content Loaded Event
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all functionality
-    initBurgerMenu();
-    initSmoothScrolling();
-    initHeaderScrollEffect();
-    initScrollAnimations();
-    initButtonEffects();
-    initFormSubmission();
-    initActiveNav();
-    initScrollHint();
-    initLightbox();
-});
+/* ══════════ WINDOW MANAGER ══════════ */
 
-// Burger menu functionality
-function initBurgerMenu() {
-    const burger = document.querySelector('.burger');
-    const nav = document.querySelector('nav');
+var zCounter = 10;
+var openWindows = {};
+var dragState = null;
+var iconDrag = null;
 
-    if (burger && nav) {
-        burger.addEventListener('click', () => {
-            burger.classList.toggle('active');
-            nav.classList.toggle('active');
-            
-            // Add rotation animation to burger
-            if (burger.classList.contains('active')) {
-                burger.style.transform = 'rotate(90deg)';
-            } else {
-                burger.style.transform = 'rotate(0deg)';
-            }
-        });
+// Default window positions (offset from top-left)
+var defaultPositions = {
+    terminal: { top: 80, left: 140 },
+    skills:   { top: 100, left: 180 },
+    projects: { top: 90, left: 160 },
+    archive:  { top: 110, left: 200 },
+    blog:     { top: 120, left: 220 },
+    contact:  { top: 140, left: 260 }
+};
 
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                burger.classList.remove('active');
-                nav.classList.remove('active');
-                burger.style.transform = 'rotate(0deg)';
-                
-                // Add click animation
-                link.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    link.style.transform = 'scale(1)';
-                }, 150);
-            });
-        });
+/* ── Open Window ── */
+function openWindow(id) {
+    var win = document.getElementById('win-' + id);
+    if (!win) return;
+
+    closeStartMenu();
+
+    // If minimized, restore
+    if (win.classList.contains('minimized')) {
+        win.classList.remove('minimized');
+        win.style.display = 'flex';
+        focusWindow(id);
+        updateTaskbar();
+        return;
+    }
+
+    // If already open, just focus
+    if (win.style.display !== 'none') {
+        focusWindow(id);
+        return;
+    }
+
+    // Center window on screen
+    if (!win.dataset.positioned) {
+        var taskbarH = 48;
+        var maxH = window.innerHeight - taskbarH - 30;
+        win.style.display = 'flex';
+        var winW = win.offsetWidth;
+        var winH = Math.min(win.offsetHeight, maxH);
+        var x = Math.max(0, Math.round((window.innerWidth - winW) / 2));
+        var y = Math.max(taskbarH + 10, Math.round(taskbarH + (window.innerHeight - taskbarH - winH) / 2));
+        win.style.left = x + 'px';
+        win.style.top = y + 'px';
+        win.dataset.positioned = '1';
+    }
+
+    win.style.display = 'flex';
+    win.classList.remove('minimized');
+    openWindows[id] = true;
+    focusWindow(id);
+    updateTaskbar();
+}
+
+/* ── Close Window ── */
+function closeWindow(id) {
+    var win = document.getElementById('win-' + id);
+    if (!win) return;
+
+    win.style.display = 'none';
+    win.classList.remove('maximized', 'minimized', 'focused');
+    delete openWindows[id];
+    updateTaskbar();
+}
+
+/* ── Minimize Window ── */
+function minimizeWindow(id) {
+    var win = document.getElementById('win-' + id);
+    if (!win) return;
+
+    win.classList.add('minimized');
+    setTimeout(function() {
+        win.style.display = 'none';
+    }, 200);
+    updateTaskbar();
+}
+
+/* ── Maximize Window ── */
+function maximizeWindow(id) {
+    var win = document.getElementById('win-' + id);
+    if (!win) return;
+
+    if (win.classList.contains('maximized')) {
+        win.classList.remove('maximized');
+    } else {
+        win.classList.add('maximized');
     }
 }
 
-// Smooth scrolling for navigation links
-function initSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
+/* ── Focus Window ── */
+function focusWindow(id) {
+    // Remove focus from all
+    document.querySelectorAll('.window').forEach(function(w) {
+        w.classList.remove('focused');
     });
+
+    var win = document.getElementById('win-' + id);
+    if (!win) return;
+
+    zCounter++;
+    win.style.zIndex = zCounter;
+    win.classList.add('focused');
+    updateTaskbar();
 }
 
-// Header scroll effect
-function initHeaderScrollEffect() {
-    let lastScrollY = window.scrollY;
-    const header = document.querySelector('header');
+/* ══════════ DRAG SYSTEM ══════════ */
 
-    if (header) {
-        window.addEventListener('scroll', () => {
-            const currentScrollY = window.scrollY;
+function startDrag(e, id) {
+    var win = document.getElementById('win-' + id);
+    if (!win || win.classList.contains('maximized')) return;
 
-            if (currentScrollY > 100) {
-                header.style.background = 'rgba(10, 10, 10, 0.97)';
-            } else {
-                header.style.background = 'rgba(10, 10, 10, 0.92)';
-            }
+    focusWindow(id);
 
-            lastScrollY = currentScrollY;
-        });
-    }
-}
-
-// Enhanced scroll animations
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+    var desktopRect = document.getElementById('desktop').getBoundingClientRect();
+    dragState = {
+        id: id,
+        win: win,
+        offsetX: e.clientX - parseInt(win.style.left || 0),
+        offsetY: e.clientY - parseInt(win.style.top || 0),
+        desktopTop: desktopRect.top
     };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                // Add staggered delay for multiple elements
-                setTimeout(() => {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0) scale(1)';
-                    entry.target.classList.add('animated');
-                }, index * 100);
-            }
-        });
-    }, observerOptions);
-
-    // Animate elements on scroll with different effects
-    const animateElements = document.querySelectorAll('.skill-card, .project-card, .featured-card, .stat, .about-text, .contact-info, .contact-form');
-
-    animateElements.forEach((el, index) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(50px) scale(0.9)';
-        el.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        el.style.transitionDelay = `${index * 0.1}s`;
-        observer.observe(el);
-    });
-
-    // Special animation for section titles
-    const titles = document.querySelectorAll('h2');
-    titles.forEach((title, index) => {
-        title.style.opacity = '0';
-        title.style.transform = 'translateY(30px)';
-        title.style.transition = 'all 0.6s ease';
-        
-        setTimeout(() => {
-            title.style.opacity = '1';
-            title.style.transform = 'translateY(0)';
-        }, (index + 1) * 200);
-    });
-
-    // Stagger animation for cards
-    const skillCards = document.querySelectorAll('.skill-card');
-    const projectCards = document.querySelectorAll('.project-card');
-
-    skillCards.forEach((card, index) => {
-        card.style.transitionDelay = `${index * 0.1}s`;
-    });
-
-    projectCards.forEach((card, index) => {
-        card.style.transitionDelay = `${index * 0.1}s`;
-    });
+    e.preventDefault();
 }
 
-// Enhanced button hover effects
-function initButtonEffects() {
-    document.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px) scale(1.05)';
-            this.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            
-            // Add ripple effect
-            const ripple = document.createElement('span');
-            ripple.style.position = 'absolute';
-            ripple.style.borderRadius = '50%';
-            ripple.style.background = 'rgba(255, 255, 255, 0.3)';
-            ripple.style.transform = 'scale(0)';
-            ripple.style.animation = 'ripple 0.6s linear';
-            ripple.style.left = '50%';
-            ripple.style.top = '50%';
-            ripple.style.width = '100px';
-            ripple.style.height = '100px';
-            ripple.style.marginLeft = '-50px';
-            ripple.style.marginTop = '-50px';
-            ripple.style.pointerEvents = 'none';
-            
-            this.appendChild(ripple);
-            
-            setTimeout(() => {
-                if (ripple.parentNode) {
-                    ripple.remove();
-                }
-            }, 600);
-        });
-        
-        btn.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-        
-        btn.addEventListener('mousedown', function() {
-            this.style.transform = 'translateY(-2px) scale(1.02)';
-        });
-        
-        btn.addEventListener('mouseup', function() {
-            this.style.transform = 'translateY(-5px) scale(1.05)';
-        });
-    });
-}
+document.addEventListener('mousemove', function(e) {
+    if (!dragState) return;
 
-// Form submission
-function initFormSubmission() {
-    const contactForm = document.querySelector('.contact-form form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const name = this.querySelector('input[type="text"]').value;
-            const email = this.querySelector('input[type="email"]').value;
-            const message = this.querySelector('textarea').value;
-            
-            // Simple validation
-            if (!name || !email || !message) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-            
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-            
-            // Simulate form submission
-            const submitBtn = this.querySelector('.btn');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.textContent = 'SENDING...';
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = '0.7';
-            
-            setTimeout(() => {
-                submitBtn.textContent = 'MESSAGE SENT!';
-                submitBtn.style.background = 'var(--green)';
-                submitBtn.style.borderColor = 'var(--green)';
-                submitBtn.style.color = 'var(--black)';
-                
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                    submitBtn.style.opacity = '1';
-                    submitBtn.style.background = '';
-                    submitBtn.style.borderColor = '';
-                    submitBtn.style.color = '';
-                    this.reset();
-                }, 2000);
-            }, 1500);
-        });
-    }
-}
+    var x = e.clientX - dragState.offsetX;
+    var y = e.clientY - dragState.offsetY;
 
-// Add floating background elements
-function createFloatingElements() {
-    const numberOfElements = 15;
-    
-    for (let i = 0; i < numberOfElements; i++) {
-        const element = document.createElement('div');
-        element.style.position = 'fixed';
-        element.style.pointerEvents = 'none';
-        element.style.zIndex = '-1';
-        element.style.width = Math.random() * 6 + 2 + 'px';
-        element.style.height = element.style.width;
-        element.style.backgroundColor = 'rgba(51, 51, 51, 0.1)';
-        element.style.borderRadius = '50%';
-        element.style.left = Math.random() * 100 + 'vw';
-        element.style.top = Math.random() * 100 + 'vh';
-        
-        const duration = Math.random() * 10 + 10;
-        element.style.animation = `float ${duration}s ease-in-out infinite`;
-        element.style.animationDelay = Math.random() * 5 + 's';
-        
-        document.body.appendChild(element);
-    }
-}
+    // Clamp to desktop bounds (taskbar on top)
+    var taskbarH = 48;
+    x = Math.max(0, Math.min(x, window.innerWidth - 100));
+    y = Math.max(0, Math.min(y, window.innerHeight - 40));
 
-// Active nav highlighting based on scroll position
-function initActiveNav() {
-    var navLinks = document.querySelectorAll('nav a[href^="#"]');
-    var sections = [];
+    dragState.win.style.left = x + 'px';
+    dragState.win.style.top = y + 'px';
+});
 
-    navLinks.forEach(function(link) {
-        var id = link.getAttribute('href').substring(1);
-        var section = document.getElementById(id);
-        if (section) sections.push({ el: section, link: link });
-    });
+document.addEventListener('mouseup', function() {
+    dragState = null;
+});
 
-    function update() {
-        var scrollY = window.scrollY + 200;
-        var current = null;
+// Touch support for mobile dragging
+document.addEventListener('touchmove', function(e) {
+    if (!dragState) return;
+    var touch = e.touches[0];
+    var x = touch.clientX - dragState.offsetX;
+    var y = touch.clientY - dragState.offsetY;
+    var taskbarH = 48;
+    x = Math.max(0, Math.min(x, window.innerWidth - 100));
+    y = Math.max(0, Math.min(y, window.innerHeight - 40));
+    dragState.win.style.left = x + 'px';
+    dragState.win.style.top = y + 'px';
+}, { passive: true });
 
-        sections.forEach(function(s) {
-            if (s.el.offsetTop <= scrollY) current = s;
-        });
+document.addEventListener('touchend', function() {
+    dragState = null;
+});
 
-        navLinks.forEach(function(link) { link.classList.remove('active'); });
-        if (current) current.link.classList.add('active');
-    }
-
-    window.addEventListener('scroll', update);
-    update();
-}
-
-// Logo click effect
-document.addEventListener('DOMContentLoaded', function() {
-    const logo = document.querySelector('.logo');
-    if (logo) {
-        logo.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
+/* ── Click on window body to focus ── */
+document.addEventListener('mousedown', function(e) {
+    var win = e.target.closest('.window');
+    if (win) {
+        var id = win.dataset.window;
+        if (id) focusWindow(id);
     }
 });
 
-// Add some interactive effects to skill and project cards
-document.addEventListener('DOMContentLoaded', function() {
-    // Card hover effects handled by CSS
-});
+/* ══════════ TASKBAR ══════════ */
 
-// Keyboard navigation support
-document.addEventListener('keydown', function(e) {
-    // ESC key closes mobile menu
-    if (e.key === 'Escape') {
-        const burger = document.querySelector('.burger');
-        const nav = document.querySelector('nav');
-        
-        if (burger && nav && nav.classList.contains('active')) {
-            burger.classList.remove('active');
-            nav.classList.remove('active');
-            burger.style.transform = 'rotate(0deg)';
+function updateTaskbar() {
+    var container = document.getElementById('taskbarTabs');
+    container.innerHTML = '';
+
+    document.querySelectorAll('.window').forEach(function(win) {
+        var id = win.dataset.window;
+        if (!id) return;
+
+        // Show tab if window is open or minimized
+        var isOpen = win.style.display !== 'none' || win.classList.contains('minimized');
+        if (!isOpen && !openWindows[id]) return;
+
+        var tab = document.createElement('button');
+        tab.className = 'taskbar-tab';
+        tab.textContent = win.querySelector('.window-title').textContent.split('—')[0].trim();
+
+        if (win.classList.contains('focused') && win.style.display !== 'none') {
+            tab.classList.add('active');
         }
+
+        tab.onclick = function() {
+            if (win.classList.contains('minimized') || win.style.display === 'none') {
+                openWindow(id);
+            } else if (win.classList.contains('focused')) {
+                minimizeWindow(id);
+            } else {
+                focusWindow(id);
+            }
+        };
+
+        container.appendChild(tab);
+    });
+}
+
+/* ══════════ START MENU ══════════ */
+
+function toggleStartMenu() {
+    var menu = document.getElementById('startMenu');
+    var btn = document.querySelector('.taskbar-start');
+    menu.classList.toggle('active');
+    btn.classList.toggle('active');
+}
+
+function closeStartMenu() {
+    document.getElementById('startMenu').classList.remove('active');
+    document.querySelector('.taskbar-start').classList.remove('active');
+}
+
+// Close start menu on outside click
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.start-menu') && !e.target.closest('.taskbar-start')) {
+        closeStartMenu();
     }
 });
 
-// Scroll hint arrow - hide on first scroll
-function initScrollHint() {
-    const hint = document.getElementById('scrollHint');
-    if (!hint) return;
+/* ══════════ CLOCK ══════════ */
 
-    function hide() {
-        hint.classList.add('hidden');
-        window.removeEventListener('scroll', hide);
+function updateClock() {
+    var el = document.getElementById('trayClock');
+    if (!el) return;
+    var now = new Date();
+    var h = String(now.getHours()).padStart(2, '0');
+    var m = String(now.getMinutes()).padStart(2, '0');
+    el.textContent = h + ':' + m;
+}
+
+setInterval(updateClock, 10000);
+updateClock();
+
+/* ══════════ LIGHTBOX ══════════ */
+
+function openLightbox(src) {
+    var lb = document.getElementById('lightbox');
+    document.getElementById('lightboxImg').src = src;
+    lb.classList.add('active');
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeLightbox();
+        closeStartMenu();
     }
+});
 
-    window.addEventListener('scroll', hide);
+/* ══════════ DESKTOP WIDGET ══════════ */
+
+function updateWidget() {
+    var now = new Date();
+    var h = String(now.getHours()).padStart(2, '0');
+    var m = String(now.getMinutes()).padStart(2, '0');
+
+    var timeEl = document.getElementById('widgetTime');
+    var dateEl = document.getElementById('widgetDate');
+    if (!timeEl) return;
+
+    timeEl.textContent = h + ':' + m;
+
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    dateEl.textContent = days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate();
 }
 
-// Lightbox for featured images
-function initLightbox() {
-    var lightbox = document.getElementById('lightbox');
-    var lightboxImg = document.getElementById('lightboxImg');
-    if (!lightbox || !lightboxImg) return;
+setInterval(updateWidget, 30000);
 
-    document.querySelectorAll('.featured-img').forEach(function(img) {
-        img.addEventListener('click', function() {
-            lightboxImg.src = img.src;
-            lightboxImg.alt = img.alt;
-            lightbox.classList.add('active');
+/* ══════════ DRAGGABLE DESKTOP ELEMENTS ══════════ */
+
+function initIconDrag() {
+    var icons = document.querySelectorAll('.desktop-icon, .draggable-widget');
+    var moved = false;
+
+    icons.forEach(function(icon) {
+        icon.addEventListener('mousedown', function(e) {
+            if (e.target.closest('a')) return;
+            if (e.target.closest('.window')) return;
+            if (e.button !== 0) return;
+            moved = false;
+            var r = icon.getBoundingClientRect();
+            var pr = icon.parentElement.getBoundingClientRect();
+            iconDrag = {
+                el: icon,
+                offsetX: e.clientX - r.left,
+                offsetY: e.clientY - r.top,
+                parentLeft: pr.left,
+                parentTop: pr.top,
+                startX: e.clientX,
+                startY: e.clientY
+            };
+            icon.style.zIndex = 5;
+            icon.style.opacity = '0.85';
+            e.preventDefault();
         });
+
+        icon.addEventListener('touchstart', function(e) {
+            moved = false;
+            var touch = e.touches[0];
+            var r = icon.getBoundingClientRect();
+            var pr = icon.parentElement.getBoundingClientRect();
+            iconDrag = {
+                el: icon,
+                offsetX: touch.clientX - r.left,
+                offsetY: touch.clientY - r.top,
+                parentLeft: pr.left,
+                parentTop: pr.top,
+                startX: touch.clientX,
+                startY: touch.clientY
+            };
+            icon.style.zIndex = 5;
+        }, { passive: true });
+
+        // Prevent click from firing if dragged
+        icon.addEventListener('click', function(e) {
+            if (moved) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+            }
+        }, true);
     });
 
-    lightbox.addEventListener('click', function() {
-        lightbox.classList.remove('active');
+    document.addEventListener('mousemove', function(e) {
+        if (!iconDrag) return;
+        var dx = e.clientX - iconDrag.startX;
+        var dy = e.clientY - iconDrag.startY;
+        if (Math.abs(dx) > 4 || Math.abs(dy) > 4) moved = true;
+        iconDrag.el.style.left = (e.clientX - iconDrag.offsetX - iconDrag.parentLeft) + 'px';
+        iconDrag.el.style.top = (e.clientY - iconDrag.offsetY - iconDrag.parentTop) + 'px';
     });
 
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') lightbox.classList.remove('active');
+    document.addEventListener('touchmove', function(e) {
+        if (!iconDrag) return;
+        var touch = e.touches[0];
+        var dx = touch.clientX - iconDrag.startX;
+        var dy = touch.clientY - iconDrag.startY;
+        if (Math.abs(dx) > 4 || Math.abs(dy) > 4) moved = true;
+        iconDrag.el.style.left = (touch.clientX - iconDrag.offsetX - iconDrag.parentLeft) + 'px';
+        iconDrag.el.style.top = (touch.clientY - iconDrag.offsetY - iconDrag.parentTop) + 'px';
+    }, { passive: true });
+
+    document.addEventListener('mouseup', function() {
+        if (iconDrag) {
+            iconDrag.el.style.zIndex = '';
+            iconDrag.el.style.opacity = '';
+            iconDrag = null;
+        }
+    });
+
+    document.addEventListener('touchend', function() {
+        if (iconDrag) {
+            iconDrag.el.style.zIndex = '';
+            iconDrag = null;
+        }
     });
 }
 
-// Smooth reveal on page load
-window.addEventListener('load', function() {
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
+/* ══════════ SECRET MASCOT (Konami Code) ══════════ */
+
+var konamiSequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+var konamiProgress = 0;
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === konamiSequence[konamiProgress]) {
+        konamiProgress++;
+        if (konamiProgress === konamiSequence.length) {
+            konamiProgress = 0;
+            var mascot = document.getElementById('mascotArea');
+            if (mascot.classList.contains('hidden')) {
+                mascot.classList.remove('hidden');
+                mascot.style.animation = 'none';
+                void mascot.offsetWidth;
+                mascot.style.animation = '';
+            }
+        }
+    } else {
+        konamiProgress = e.key === konamiSequence[0] ? 1 : 0;
+    }
+});
+
+/* ══════════ MASCOT INTERACTION ══════════ */
+
+var mascotPhrases = [
+    "Meow. I mean... hello.",
+    "I'm the senior developer here.",
+    "Have you tried turning it off and on again?",
+    "I wrote this website. Trust me.",
+    "Stop clicking me and check the projects!",
+    "Feed me code. Or tuna.",
+    "I'm not fat, I'm well-architected.",
+    "404: Treats not found.",
+    "sudo give me attention",
+    "My code compiles on the first try. Always.",
+    "I debug by sitting on the keyboard.",
+    "git commit -m 'cat was here'"
+];
+
+var mascotIndex = 0;
+
+function mascotInteract() {
+    var bubble = document.getElementById('speechBubble');
+    var area = document.getElementById('mascotArea');
+
+    mascotIndex = (mascotIndex + 1) % mascotPhrases.length;
+    bubble.textContent = mascotPhrases[mascotIndex];
+
+    area.classList.remove('excited');
+    void area.offsetWidth;
+    area.classList.add('excited');
+
+    setTimeout(function() {
+        area.classList.remove('excited');
+    }, 600);
+}
+
+/* ══════════ BOOT SEQUENCE ══════════ */
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateWidget();
+
+    // Init icon drag after boot animation finishes
+    setTimeout(function() {
+        initIconDrag();
+    }, 500);
+
 });

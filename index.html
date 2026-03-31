@@ -3,388 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ilya Nanarov - Portfolio</title>
+    <title>Illia Nanarov — Desktop</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="scanlines"></div>
-    <header>
-        <div class="container">
-            <div class="logo">Homeless Wizard</div>
-            <nav>
-                <a href="#home">Home</a>
-                <a href="#skills">Skills</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Bloge</a>
-            </nav>
-            <div class="burger">
-                <div></div><div></div><div></div>
+
+<!-- ══════════ DESKTOP ══════════ -->
+<div class="desktop" id="desktop">
+
+    <!-- ══════ MASCOT (hidden by default) ══════ -->
+    <div class="mascot-area hidden" id="mascotArea" ondblclick="mascotInteract()">
+        <div class="speech-bubble" id="speechBubble">You found me!</div>
+        <img src="images/pngtree-chubby-cat-meme-sticker-cute-illustration-vector-png-image_13892130-3083347318.png" alt="Homeless Wizard mascot" class="desktop-mascot" id="mascotImg">
+    </div>
+
+    <!-- ══════ INFO GROUP (top-right) ══════ -->
+    <div class="info-group" id="infoGroup">
+        <div class="readme-card">
+            <div class="readme-header">README.md</div>
+            <div class="readme-body">
+                <h2>Illia Nanarov</h2>
+                <p class="readme-role">Developer & Engineer</p>
+                <p>Passionate about AI, DevOps and MLOps-based applications.<br>Building practical projects: AI-driven tools & automation systems.</p>
+                <div class="readme-tags">
+                    <span>ML/AI</span><span>Full-Stack</span><span>DevOps</span><span>Automation</span>
+                </div>
+                <p class="readme-edu">Kyiv-Mohyla Academy — ML/AI</p>
             </div>
         </div>
-    </header>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">Developer and Engineer</h1>
-            <p class="hero-subtitle">A dead-simple CV</p>
-
-            <div class="code-block">
-                <div class="code-line"><span class="prompt">$</span> whoami</div>
-                <div class="code-line output">Illia Nanarov</div>
-                <div class="code-line"><span class="prompt">$</span> cat about.txt</div>
-                <div class="code-line output">A passion toward AI, DevOps and MLOps-based applications.</div>
-                <div class="code-line output">Building practical projects: AI-driven tools & automation systems.</div>
-                <div class="code-line"><span class="prompt">$</span> cat education.txt</div>
-                <div class="code-line output">National University of Kyiv-Mohyla Academy — ML/AI</div>
-                <div class="code-line"><span class="prompt">$</span> ls skills/</div>
-                <div class="code-line output">ML/AI &nbsp; Automation &nbsp; Full-Stack &nbsp; DevOps</div>
-                <div class="code-line"><span class="prompt">$</span> cat status.txt</div>
-                <div class="code-line output" style="color: #90EE90;">Open to collaborate</div>
+        <div class="info-right">
+            <div class="clock-widget">
+                <div class="clock-time" id="widgetTime"></div>
+                <div class="clock-date" id="widgetDate"></div>
             </div>
 
-            <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">VIEW MY WORK</a>
-                <a href="#contact" class="btn btn-secondary">HIRE ME</a>
+            <div class="sticky-note sticky-orange">
+                <strong>Open to collaborate</strong><br>
+                i.nanarov@ukma.edu.ua<br>
+                github.com/IllyaMoore
+            </div>
+
+            <div class="sticky-note sticky-yellow">
+                TODO:<br>
+                - Finish drone detection<br>
+                - More blog posts<br>
+                - Touch grass sometimes
             </div>
         </div>
-    </section>
+    </div>
 
+    <!-- Desktop Icons -->
+    <div class="desktop-icons">
+        <div class="desktop-icon boot-icon" style="left:24px;top:16px" onclick="openWindow('terminal')">
+            <div class="icon-graphic icon-green"><svg width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M6 9a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3A.5.5 0 0 1 6 9M3.854 4.146a.5.5 0 1 0-.708.708L4.793 6.5 3.146 8.146a.5.5 0 1 0 .708.708l2-2a.5.5 0 0 0 0-.708z"/><path d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/></svg></div>
+            <span>terminal.exe</span>
+        </div>
+        <div class="desktop-icon boot-icon" style="left:24px;top:120px" onclick="openWindow('skills')">
+            <div class="icon-graphic icon-blue"><svg width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0m6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0"/></svg></div>
+            <span>skills.sys</span>
+        </div>
+        <div class="desktop-icon boot-icon" style="left:24px;top:224px" onclick="openWindow('projects')">
+            <div class="icon-graphic icon-yellow"><svg width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/></svg></div>
+            <span>projects/</span>
+        </div>
+        <div class="desktop-icon boot-icon" style="left:24px;top:328px" onclick="openWindow('archive')">
+            <div class="icon-graphic icon-dim"><svg width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139q.323-.119.684-.12h5.396z"/></svg></div>
+            <span>archive/</span>
+        </div>
+        <div class="desktop-icon boot-icon" style="left:24px;top:432px" onclick="openWindow('blog')">
+            <div class="icon-graphic icon-purple"><svg width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/></svg></div>
+            <span>blog.app</span>
+        </div>
+        <div class="desktop-icon boot-icon" style="left:24px;top:536px" onclick="openWindow('contact')">
+            <div class="icon-graphic icon-cyan"><svg width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/></svg></div>
+            <span>contact.txt</span>
+        </div>
+    </div>
 
+    <!-- ══════════ WINDOWS ══════════ -->
 
+    <!-- Terminal Window -->
+    <div class="window" id="win-terminal" data-window="terminal" style="display:none;">
+        <div class="window-titlebar" onmousedown="startDrag(event, 'terminal')">
+            <div class="window-title">terminal.exe</div>
+            <div class="window-controls">
+                <button class="win-btn win-minimize" onclick="minimizeWindow('terminal')"></button>
+                <button class="win-btn win-maximize" onclick="maximizeWindow('terminal')"></button>
+                <button class="win-btn win-close" onclick="closeWindow('terminal')"></button>
+            </div>
+        </div>
+        <div class="window-body terminal-body">
+            <div class="term-line"><span class="prompt">visitor@illia</span>:<span class="term-path">~</span>$ whoami</div>
+            <div class="term-line output">Illia Nanarov</div>
+            <div class="term-line"><span class="prompt">visitor@illia</span>:<span class="term-path">~</span>$ cat about.txt</div>
+            <div class="term-line output">Developer and Engineer.</div>
+            <div class="term-line output">A passion toward AI, DevOps and MLOps-based applications.</div>
+            <div class="term-line output">Building practical projects: AI-driven tools & automation systems.</div>
+            <div class="term-line"><span class="prompt">visitor@illia</span>:<span class="term-path">~</span>$ cat education.txt</div>
+            <div class="term-line output">National University of Kyiv-Mohyla Academy — ML/AI</div>
+            <div class="term-line"><span class="prompt">visitor@illia</span>:<span class="term-path">~</span>$ ls tags/</div>
+            <div class="term-line output">ML/AI &nbsp;&nbsp; Automation &nbsp;&nbsp; Full-Stack &nbsp;&nbsp; DevOps</div>
+            <div class="term-line"><span class="prompt">visitor@illia</span>:<span class="term-path">~</span>$ cat status.txt</div>
+            <div class="term-line output status-green">Open to collaborate</div>
+            <div class="term-line"><span class="prompt">visitor@illia</span>:<span class="term-path">~</span>$ <span class="cursor">_</span></div>
+        </div>
+    </div>
 
-    <section id="skills">
-        <div class="section-content">
-            <h2>Technologies I Use</h2>
+    <!-- Skills Window -->
+    <div class="window" id="win-skills" data-window="skills" style="display:none;">
+        <div class="window-titlebar" onmousedown="startDrag(event, 'skills')">
+            <div class="window-title">skills.sys — Technologies I Use</div>
+            <div class="window-controls">
+                <button class="win-btn win-minimize" onclick="minimizeWindow('skills')"></button>
+                <button class="win-btn win-maximize" onclick="maximizeWindow('skills')"></button>
+                <button class="win-btn win-close" onclick="closeWindow('skills')"></button>
+            </div>
+        </div>
+        <div class="window-body">
             <div class="skills-grid">
                 <div class="skill-card">
-                    <div class="skill-header">
-                        <h3>Frontend</h3>
-                    </div>
-                    <div class="skill-list">
-                        <span>React</span>
-                        <span>Next.js</span>
-                        <span>TypeScript</span>
-                        <span>Tailwind CSS</span>
-                        <span>Radix UI</span>
-                        <span>Framer Motion</span>
+                    <h3>Frontend</h3>
+                    <div class="skill-tags">
+                        <span>React</span><span>Next.js</span><span>TypeScript</span>
+                        <span>Tailwind CSS</span><span>Radix UI</span><span>Framer Motion</span>
                         <span>HTML / CSS / JS</span>
                     </div>
                 </div>
-
                 <div class="skill-card">
-                    <div class="skill-header">
-                        <h3>Backend</h3>
-                    </div>
-                    <div class="skill-list">
-                        <span>Node.js</span>
-                        <span>Supabase</span>
-                        <span>SQLite</span>
-                        <span>PostgreSQL</span>
-                        <span>REST API</span>
-                        <span>MCP</span>
+                    <h3>Backend</h3>
+                    <div class="skill-tags">
+                        <span>Node.js</span><span>Supabase</span><span>SQLite</span>
+                        <span>PostgreSQL</span><span>REST API</span><span>MCP</span>
                     </div>
                 </div>
-
                 <div class="skill-card">
-                    <div class="skill-header">
-                        <h3>AI / ML</h3>
-                    </div>
-                    <div class="skill-list">
-                        <span>Python</span>
-                        <span>PyTorch</span>
-                        <span>scikit-learn</span>
-                        <span>NumPy / Pandas</span>
-                        <span>OpenAI API</span>
-                        <span>Claude Agent SDK</span>
+                    <h3>AI / ML</h3>
+                    <div class="skill-tags">
+                        <span>Python</span><span>PyTorch</span><span>scikit-learn</span>
+                        <span>NumPy / Pandas</span><span>OpenAI API</span><span>Claude Agent SDK</span>
                         <span>Jupyter Notebook</span>
                     </div>
                 </div>
-
                 <div class="skill-card">
-                    <div class="skill-header">
-                        <h3>DevOps / Tools</h3>
-                    </div>
-                    <div class="skill-list">
-                        <span>Git</span>
-                        <span>Docker</span>
-                        <span>Linux</span>
-                        <span>GitHub Actions</span>
-                        <span>Vite</span>
-                        <span>Vitest / Playwright</span>
+                    <h3>DevOps / Tools</h3>
+                    <div class="skill-tags">
+                        <span>Git</span><span>Docker</span><span>Linux</span>
+                        <span>GitHub Actions</span><span>Vite</span><span>Vitest / Playwright</span>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="featured-work">
-        <div class="section-content">
-            <h2>Featured Work</h2>
-            <div class="featured-grid">
+    <!-- Featured Projects Window -->
+    <div class="window window-wide" id="win-projects" data-window="projects" style="display:none;">
+        <div class="window-titlebar" onmousedown="startDrag(event, 'projects')">
+            <div class="window-title">projects/ — Featured Work</div>
+            <div class="window-controls">
+                <button class="win-btn win-minimize" onclick="minimizeWindow('projects')"></button>
+                <button class="win-btn win-maximize" onclick="maximizeWindow('projects')"></button>
+                <button class="win-btn win-close" onclick="closeWindow('projects')"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="featured-list">
 
-                <!-- StoryFunnels -->
                 <div class="featured-card">
                     <div class="featured-images">
-                        <img src="projectIMGs/photo_2_2026-03-30_16-37-33.jpg" alt="StoryFunnels landing page" class="featured-img">
-                        <img src="projectIMGs/photo_3_2026-03-30_16-37-33.jpg" alt="StoryFunnels task management" class="featured-img">
+                        <img src="projectIMGs/photo_2_2026-03-30_16-37-33.jpg" alt="StoryFunnels landing" class="featured-img" onclick="openLightbox(this.src)">
+                        <img src="projectIMGs/photo_3_2026-03-30_16-37-33.jpg" alt="StoryFunnels kanban" class="featured-img" onclick="openLightbox(this.src)">
                     </div>
-                    <div class="featured-body">
-                        <div class="featured-header">
+                    <div class="featured-info">
+                        <div class="featured-head">
                             <h3>StoryFunnels</h3>
-                            <span class="project-status">In Development</span>
+                            <span class="status-badge">In Development</span>
                         </div>
                         <p class="featured-role">Co-developer (Task Management Module)</p>
                         <p>AI-powered marketing automation platform with 33+ modules — from funnel building and email campaigns to social media scheduling and ad management. Includes a full kanban task management system, AI assistant workspace, and content creation tools.</p>
-                        <div class="project-tech">
-                            <span>React</span>
-                            <span>TypeScript</span>
-                            <span>Supabase</span>
-                            <span>Tailwind CSS</span>
-                            <span>OpenAI API</span>
-                            <span>Vite</span>
+                        <div class="tech-tags">
+                            <span>React</span><span>TypeScript</span><span>Supabase</span>
+                            <span>Tailwind CSS</span><span>OpenAI API</span><span>Vite</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Command Center -->
                 <div class="featured-card">
                     <div class="featured-images">
-                        <img src="projectIMGs/photo_1_2026-03-30_16-37-33.jpg" alt="Command Center dashboard" class="featured-img">
-                        <img src="projectIMGs/photo_2026-03-30_17-06-26.jpg" alt="Command Center chat with AI assistant" class="featured-img">
+                        <img src="projectIMGs/photo_1_2026-03-30_16-37-33.jpg" alt="Command Center dashboard" class="featured-img" onclick="openLightbox(this.src)">
+                        <img src="projectIMGs/photo_2026-03-30_17-06-26.jpg" alt="Command Center chat" class="featured-img" onclick="openLightbox(this.src)">
                     </div>
-                    <div class="featured-body">
-                        <div class="featured-header">
+                    <div class="featured-info">
+                        <div class="featured-head">
                             <h3>Command Center</h3>
-                            <span class="project-status">In Development</span>
+                            <span class="status-badge">In Development</span>
                         </div>
                         <p class="featured-role">Solo developer</p>
                         <p>Personal AI assistant platform that connects Claude AI to WhatsApp and Telegram. Features multi-agent management with isolated sessions, scheduled task automation, Google Workspace integration (Calendar, Gmail, Drive), and a real-time web dashboard — all running in secure Docker containers.</p>
-                        <div class="project-tech">
-                            <span>Node.js</span>
-                            <span>TypeScript</span>
-                            <span>Claude Agent SDK</span>
-                            <span>Next.js</span>
-                            <span>SQLite</span>
-                            <span>Docker</span>
-                            <span>MCP</span>
+                        <div class="tech-tags">
+                            <span>Node.js</span><span>TypeScript</span><span>Claude Agent SDK</span>
+                            <span>Next.js</span><span>SQLite</span><span>Docker</span><span>MCP</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- CI/CD Pipeline -->
                 <div class="featured-card">
                     <div class="featured-images">
-                        <img src="projectIMGs/photo_2026-03-30_16-53-46.jpg" alt="CI/CD pipeline diagram" class="featured-img featured-img-contain">
+                        <img src="projectIMGs/photo_2026-03-30_16-53-46.jpg" alt="CI/CD pipeline" class="featured-img featured-img-contain" onclick="openLightbox(this.src)">
                     </div>
-                    <div class="featured-body">
-                        <div class="featured-header">
+                    <div class="featured-info">
+                        <div class="featured-head">
                             <h3>CI/CD Pipeline</h3>
-                            <span class="project-status">Implemented</span>
+                            <span class="status-badge">Implemented</span>
                         </div>
                         <p class="featured-role">DevOps Engineer — StoryFunnels</p>
-                        <p>Full CI/CD pipeline with four phases: pre-commit hooks (ESLint, Prettier, smoke E2E), pre-push checks (TS build, unit tests, local AI code review), CI pipeline (E2E Playwright, coverage gate at 30%+, TS types check), and automated AI-powered code review using specialized agents for bugs, security, test coverage gaps, and type design.</p>
-                        <div class="project-tech">
-                            <span>GitHub Actions</span>
-                            <span>Husky</span>
-                            <span>Playwright</span>
-                            <span>Vitest</span>
-                            <span>ESLint</span>
-                            <span>Claude Code</span>
-                            <span>lint-staged</span>
+                        <p>Full CI/CD pipeline with four phases: pre-commit hooks (ESLint, Prettier, smoke E2E), pre-push checks (TS build, unit tests, local AI code review), CI pipeline (E2E Playwright, coverage gate at 30%+, TS types check), and automated AI-powered code review.</p>
+                        <div class="tech-tags">
+                            <span>GitHub Actions</span><span>Husky</span><span>Playwright</span>
+                            <span>Vitest</span><span>ESLint</span><span>Claude Code</span><span>lint-staged</span>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="projects">
-        <div class="section-content">
-            <h2>Learning projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
+    <!-- Archive Window -->
+    <div class="window" id="win-archive" data-window="archive" style="display:none;">
+        <div class="window-titlebar" onmousedown="startDrag(event, 'archive')">
+            <div class="window-title">archive/ — Learning Projects</div>
+            <div class="window-controls">
+                <button class="win-btn win-minimize" onclick="minimizeWindow('archive')"></button>
+                <button class="win-btn win-maximize" onclick="maximizeWindow('archive')"></button>
+                <button class="win-btn win-close" onclick="closeWindow('archive')"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="archive-grid">
+                <div class="archive-item">
+                    <div class="archive-head">
                         <h3>Air Threat Forecasting for Ukraine</h3>
-                        <span class="project-status">Done</span>
+                        <span class="status-badge">Done</span>
                     </div>
-                    <p>Python-based SaaS web application that analyzes and forecasts air alarms, explosions, and artillery activity across different regions of Ukraine. It combines machine learning, automated data collection, and regional intelligence to estimate threats and highlight potentially dangerous zones on a per-oblast basis.</p>
-                    <div class="project-tech">
-                        <span>Jupyter Notebook</span>
-                        <span>NumPy</span>
-                        <span>scikit-learn</span>
-                        <span>matplotlib / seaborn</span>
-                        <span>PyTorch</span>
+                    <p>Python-based SaaS web application that analyzes and forecasts air alarms, explosions, and artillery activity across different regions of Ukraine.</p>
+                    <div class="tech-tags">
+                        <span>Jupyter Notebook</span><span>NumPy</span><span>scikit-learn</span><span>PyTorch</span>
                     </div>
-                    <div class="project-links">
-                        <a href="https://github.com/tumelonito/KMA_homework2" target="_blank" rel="noopener noreferrer">
-  <button class="btn btn-small btn-outline">GitHub</button>
-</a>
-                    </div>
+                    <a href="https://github.com/tumelonito/KMA_homework2" target="_blank" rel="noopener noreferrer" class="archive-link">github.com/...</a>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-header">
+                <div class="archive-item">
+                    <div class="archive-head">
                         <h3>Emotion-Classification</h3>
-                        <span class="project-status">Done</span>
+                        <span class="status-badge">Done</span>
                     </div>
-                    <p>This project implements a neural network trained on the GoEmotions dataset to classify emotions in text. It uses tokenization and an LSTM-based model for multi-label emotion recognition, enabling accurate detection of 29 different emotional states from textual data.</p>
-                    <div class="project-tech">
-                        <span>Jupyter Notebook</span>
-                        <span>NumPy</span>
-                        <span>scikit-learn</span>
-                        <span>matplotlib</span>
-                        <span>PyTorch</span>
+                    <p>Neural network trained on GoEmotions dataset for multi-label emotion recognition — 29 emotional states from text using LSTM.</p>
+                    <div class="tech-tags">
+                        <span>PyTorch</span><span>NumPy</span><span>scikit-learn</span><span>matplotlib</span>
                     </div>
-                    <div class="project-links">
-                        <a href="https://github.com/IllyaMoore/Emotion-Classification" target="_blank" rel="noopener noreferrer">
-  <button class="btn btn-small btn-outline">GitHub</button>
-</a>
-                    </div>
+                    <a href="https://github.com/IllyaMoore/Emotion-Classification" target="_blank" rel="noopener noreferrer" class="archive-link">github.com/...</a>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>CV Website</h3>
-                        <span class="project-status">maintaining</span>
-                    </div>
-                    <p>CV Website your currently on! Maintaining by me, and my friend Raspberry Pi</p>
-                    <div class="project-tech">
-                        <span>python</span>
-                        <span>html\css</span>
-                        <span>JS</span>
-                        <span>Django</span>
-                        <span>PostgreSQL</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/IllyaMoore/CV" target="_blank" rel="noopener noreferrer">
-  <button class="btn btn-small btn-outline">GitHub</button>
-</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
+                <div class="archive-item">
+                    <div class="archive-head">
                         <h3>CV-Drone-Detection</h3>
-                        <span class="project-status">On hold</span>
+                        <span class="status-badge">On hold</span>
                     </div>
-                    <p>This project implements an automated drone detection system for images using computer vision methods and neural networks. The system is capable of distinguishing drones from other objects in the sky with good accuracy.</p>
-                    <div class="project-tech">
-                        <span>python</span>
-                        <span>OpenCV</span>
-                        <span>PyTorch</span>
-                        <span>NumPy, Pandas</span>
-                        <span>Matplotlib, Seaborn</span>
+                    <p>Automated drone detection system for images using computer vision and neural networks.</p>
+                    <div class="tech-tags">
+                        <span>OpenCV</span><span>PyTorch</span><span>NumPy</span>
                     </div>
-                    <div class="project-links">
-                        <a href="https://github.com/IllyaMoore/CV-Drone-Detection" target="_blank" rel="noopener noreferrer">
-  <button class="btn btn-small btn-outline">GitHub</button>
-</a>
-                    </div>
+                    <a href="https://github.com/IllyaMoore/CV-Drone-Detection" target="_blank" rel="noopener noreferrer" class="archive-link">github.com/...</a>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>License-Plate-Recognition</h3>
-                        <span class="project-status">On hold</span>
-                    </div>
-                    <p>Coming later</p>
-                    <div class="project-tech">
-                        <span>python</span>
-                        <span>torch</span>
-                        <span>pundas, numpy</span>
-                        <span>opencv-python</span>
-                        <span>Matplotlib</span>
-                        <span>scikit-learn</span>
-                        <span>torchvision</span>
-                        <span>glob2</span>
-                        <span>tensorboard</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/IllyaMoore/License-Plate-Recognition" target="_blank" rel="noopener noreferrer">
-  <button class="btn btn-small btn-outline">GitHub</button>
-</a>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-header">
+                <div class="archive-item">
+                    <div class="archive-head">
                         <h3>CV_Animals-10</h3>
-                        <span class="project-status">Done</span>
+                        <span class="status-badge">Done</span>
                     </div>
-                    <p>This project focuses on image classification of animals using convolutional neural networks (CNNs). It utilizes the Animals-10 dataset, which contains images of 10 different animal classes:</p>
-                    <div class="project-tech">
-                        <span>torch</span>
-                        <span>torchvision</span>
-                        <span>matplotlib</span>
-                        <span>numpy</span>
-                        <span>Pillow </span>
+                    <p>Image classification of 10 animal classes using convolutional neural networks.</p>
+                    <div class="tech-tags">
+                        <span>torch</span><span>torchvision</span><span>matplotlib</span>
                     </div>
-                    <div class="project-links">
-                        <a href="https://github.com/IllyaMoore/CV_Animals-10" target="_blank" rel="noopener noreferrer">
-  <button class="btn btn-small btn-outline">GitHub</button>
-</a>
-                    </div>
+                    <a href="https://github.com/IllyaMoore/CV_Animals-10" target="_blank" rel="noopener noreferrer" class="archive-link">github.com/...</a>
                 </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>See more at</h3>
+                <div class="archive-item">
+                    <div class="archive-head">
+                        <h3>License-Plate-Recognition</h3>
+                        <span class="status-badge">On hold</span>
                     </div>
-                    <div class="project-links">
-                        <a href="https://github.com/IllyaMoore" target="_blank" rel="noopener noreferrer">
-                      <button class="btn btn-small btn-outline">My GitHub</button></a>
+                    <p>Coming later.</p>
+                    <div class="tech-tags">
+                        <span>torch</span><span>opencv-python</span><span>tensorboard</span>
                     </div>
+                    <a href="https://github.com/IllyaMoore/License-Plate-Recognition" target="_blank" rel="noopener noreferrer" class="archive-link">github.com/...</a>
                 </div>
-
-
-    </section>
-
-    <section id="contact">
-    <div class="section-content">
-        <h2>Bloge</h2>
-
-        <div class="blog-grid">
-            <a href="TheWayOfKings.html" class="blog-tile">
-                <h3>The Way of Kings – Review</h3>
-                <p>Discovering Brandon Sanderson and his worldbuilding.</p>
-            </a>
-            <a href="WordsOfRadiance.html" class="blog-tile">
-                <h3>Words of Radiance – Review</h3>
-                <p>Continuing with a series.</p>
-            </a>
+                <div class="archive-item" style="display:flex;align-items:center;justify-content:center;">
+                    <a href="https://github.com/IllyaMoore" target="_blank" rel="noopener noreferrer" class="archive-link" style="font-size:1rem;">See all on GitHub &rarr;</a>
+                </div>
+            </div>
         </div>
     </div>
-</section>
 
-
-
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="mailto:i.nanarov@ukma.edu.ua" class="footer-link">
-                    <span class="footer-label">Email</span>
-                    <span class="footer-value">i.nanarov@ukma.edu.ua</span>
+    <!-- Blog Window -->
+    <div class="window" id="win-blog" data-window="blog" style="display:none;">
+        <div class="window-titlebar" onmousedown="startDrag(event, 'blog')">
+            <div class="window-title">blog.app</div>
+            <div class="window-controls">
+                <button class="win-btn win-minimize" onclick="minimizeWindow('blog')"></button>
+                <button class="win-btn win-maximize" onclick="maximizeWindow('blog')"></button>
+                <button class="win-btn win-close" onclick="closeWindow('blog')"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="blog-list">
+                <a href="TheWayOfKings.html" class="blog-entry">
+                    <h3>The Way of Kings — Review</h3>
+                    <p>Discovering Brandon Sanderson and his worldbuilding.</p>
                 </a>
-                <a href="https://github.com/IllyaMoore" target="_blank" rel="noopener noreferrer" class="footer-link">
-                    <span class="footer-label">GitHub</span>
-                    <span class="footer-value">IllyaMoore</span>
+                <a href="WordsOfRadiance.html" class="blog-entry">
+                    <h3>Words of Radiance — Review</h3>
+                    <p>Continuing with a series.</p>
                 </a>
             </div>
         </div>
-    </footer>
-
-    <div class="lightbox" id="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <img class="lightbox-img" id="lightboxImg" src="" alt="">
     </div>
 
-    <div class="scroll-hint" id="scrollHint">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 5v14M5 12l7 7 7-7"/>
-        </svg>
+    <!-- Contact Window -->
+    <div class="window window-small" id="win-contact" data-window="contact" style="display:none;">
+        <div class="window-titlebar" onmousedown="startDrag(event, 'contact')">
+            <div class="window-title">contact.txt</div>
+            <div class="window-controls">
+                <button class="win-btn win-minimize" onclick="minimizeWindow('contact')"></button>
+                <button class="win-btn win-maximize" onclick="maximizeWindow('contact')"></button>
+                <button class="win-btn win-close" onclick="closeWindow('contact')"></button>
+            </div>
+        </div>
+        <div class="window-body terminal-body">
+            <div class="term-line"><span class="prompt">visitor@illia</span>:<span class="term-path">~</span>$ cat contact.txt</div>
+            <div class="term-line output"></div>
+            <div class="term-line output">Email &nbsp;&nbsp;&nbsp; <a href="mailto:i.nanarov@ukma.edu.ua" class="term-link">i.nanarov@ukma.edu.ua</a></div>
+            <div class="term-line output">GitHub &nbsp;&nbsp; <a href="https://github.com/IllyaMoore" target="_blank" rel="noopener noreferrer" class="term-link">github.com/IllyaMoore</a></div>
+            <div class="term-line output"></div>
+            <div class="term-line"><span class="prompt">visitor@illia</span>:<span class="term-path">~</span>$ <span class="cursor">_</span></div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+</div>
+
+<!-- ══════════ TASKBAR ══════════ -->
+<div class="taskbar">
+    <button class="taskbar-start" onclick="toggleStartMenu()">HW</button>
+    <div class="taskbar-tabs" id="taskbarTabs"></div>
+    <div class="taskbar-tray">
+        <span class="tray-status">Open to collaborate</span>
+        <span class="tray-clock" id="trayClock"></span>
+    </div>
+</div>
+
+<!-- Start Menu -->
+<div class="start-menu" id="startMenu">
+    <div class="start-header">Homeless Wizard OS</div>
+    <div class="start-item" onclick="openWindow('terminal')">terminal.exe</div>
+    <div class="start-item" onclick="openWindow('skills')">skills.sys</div>
+    <div class="start-item" onclick="openWindow('projects')">projects/</div>
+    <div class="start-item" onclick="openWindow('archive')">archive/</div>
+    <div class="start-item" onclick="openWindow('blog')">blog.app</div>
+    <div class="start-item" onclick="openWindow('contact')">contact.txt</div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
