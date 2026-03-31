@@ -45,7 +45,7 @@ function openWindow(id) {
         var winW = win.offsetWidth;
         var winH = Math.min(win.offsetHeight, maxH);
         var x = Math.max(0, Math.round((window.innerWidth - winW) / 2));
-        var y = Math.max(taskbarH + 10, Math.round(taskbarH + (window.innerHeight - taskbarH - winH) / 2));
+        var y = Math.max(taskbarH + 8, Math.round(taskbarH + (window.innerHeight - taskbarH - winH) / 3));
         win.style.left = x + 'px';
         win.style.top = y + 'px';
         win.dataset.positioned = '1';
@@ -431,10 +431,83 @@ function mascotInteract() {
     }, 600);
 }
 
+/* ══════════ BOOT TYPING ANIMATION ══════════ */
+
+function bootSequence() {
+    var el = document.getElementById('bootText');
+    var overlay = document.getElementById('bootOverlay');
+    if (!el || !overlay) return;
+
+    var lines = [
+        '> Initializing system...',
+        '> Welcome, visitor.',
+        '> Click an icon to explore.'
+    ];
+
+    var lineIdx = 0;
+    var charIdx = 0;
+    var deleting = false;
+    var pauseAfterLine = 1200;
+    var pauseAfterDelete = 300;
+    var typeSpeed = 35;
+    var deleteSpeed = 15;
+
+    function tick() {
+        if (lineIdx >= lines.length) {
+            // Done — fade out
+            setTimeout(function() {
+                overlay.classList.add('done');
+            }, 800);
+            return;
+        }
+
+        var line = lines[lineIdx];
+
+        if (!deleting) {
+            // Typing
+            charIdx++;
+            el.textContent = line.substring(0, charIdx);
+
+            if (charIdx >= line.length) {
+                // Finished typing this line
+                if (lineIdx === lines.length - 1) {
+                    // Last line — hold then fade
+                    setTimeout(function() {
+                        overlay.classList.add('done');
+                    }, 2000);
+                    return;
+                }
+                // Pause then start deleting
+                setTimeout(function() {
+                    deleting = true;
+                    tick();
+                }, pauseAfterLine);
+                return;
+            }
+            setTimeout(tick, typeSpeed);
+        } else {
+            // Deleting
+            charIdx--;
+            el.textContent = line.substring(0, charIdx);
+
+            if (charIdx <= 0) {
+                deleting = false;
+                lineIdx++;
+                setTimeout(tick, pauseAfterDelete);
+                return;
+            }
+            setTimeout(tick, deleteSpeed);
+        }
+    }
+
+    setTimeout(tick, 500);
+}
+
 /* ══════════ BOOT SEQUENCE ══════════ */
 
 document.addEventListener('DOMContentLoaded', function() {
     updateWidget();
+    bootSequence();
 
     // Init icon drag after boot animation finishes
     setTimeout(function() {
