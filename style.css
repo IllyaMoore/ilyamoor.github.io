@@ -542,6 +542,8 @@ html, body {
     background: var(--dark);
     scrollbar-width: thin;
     scrollbar-color: var(--border) var(--dark);
+    font-size: 15px;
+    line-height: 1.6;
 }
 
 .maximized .window-body {
@@ -562,7 +564,7 @@ html, body {
 .terminal-body {
     background: var(--black);
     padding: 20px;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.7;
     border: 1px solid var(--border);
     margin: 0;
@@ -615,7 +617,7 @@ html, body {
 
 .skill-card h3 {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--yellow);
     text-transform: uppercase;
@@ -632,7 +634,7 @@ html, body {
 }
 
 .skill-tags span {
-    font-size: 10px;
+    font-size: 13px;
     color: var(--text);
     padding: 2px 8px;
     border: 1px solid var(--border);
@@ -716,7 +718,7 @@ html, body {
 
 .featured-head h3 {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     color: var(--yellow);
     text-transform: uppercase;
@@ -724,7 +726,7 @@ html, body {
 }
 
 .featured-role {
-    font-size: 9px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--text-dim);
@@ -733,14 +735,14 @@ html, body {
 
 .featured-info > p:not(.featured-role) {
     color: var(--text);
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.7;
     margin-bottom: 14px;
 }
 
 /* ══════════ STATUS + TECH TAGS ══════════ */
 .status-badge {
-    font-size: 9px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--green);
@@ -757,7 +759,7 @@ html, body {
 }
 
 .tech-tags span {
-    font-size: 10px;
+    font-size: 12px;
     color: var(--blue);
     padding: 2px 6px;
     border: 1px solid rgba(74, 159, 255, 0.15);
@@ -797,7 +799,7 @@ html, body {
 
 .archive-head h3 {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 700;
     color: var(--text-bright);
     text-transform: uppercase;
@@ -806,14 +808,14 @@ html, body {
 }
 
 .archive-item p {
-    font-size: 10px;
+    font-size: 13px;
     color: var(--text);
     line-height: 1.5;
     margin-bottom: 8px;
 }
 
 .archive-link {
-    font-size: 10px;
+    font-size: 12px;
     color: var(--yellow);
     text-decoration: none;
     letter-spacing: 0.5px;
@@ -846,7 +848,7 @@ html, body {
 
 .blog-entry h3 {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     color: var(--text-bright);
     text-transform: uppercase;
@@ -855,7 +857,7 @@ html, body {
 }
 
 .blog-entry p {
-    font-size: 11px;
+    font-size: 13px;
     color: var(--text-dim);
 }
 
