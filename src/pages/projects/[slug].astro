@@ -20,10 +20,11 @@ const statusLabel = {
 }[project.status];
 
 const isAcoustic = project.slug === 'acoustic-uav-detector';
+const base = import.meta.env.BASE_URL;
 ---
 <Layout title={`${project.title} — Illia Nanarov`} description={project.summary}>
   <article class="pt-16 sm:pt-20">
-    <a href="/#work" class="inline-flex items-center gap-2 mb-14 text-sm text-ink-2 hover:text-ink-0 transition-colors">
+    <a href={`${base}#work`} class="inline-flex items-center gap-2 mb-14 text-sm text-ink-2 hover:text-ink-0 transition-colors">
       <span aria-hidden="true">←</span> Back
     </a>
 
@@ -52,7 +53,7 @@ const isAcoustic = project.slug === 'acoustic-uav-detector';
       <div class="grid gap-4 mb-14 max-w-4xl">
         {project.images.map((img) => (
           <img
-            src={`/projects/${img}`}
+            src={`${base}projects/${img}`}
             alt={project.title}
             loading="lazy"
             class="w-full rounded-sm border border-bg-3 bg-bg-1"
@@ -102,11 +103,11 @@ const isAcoustic = project.slug === 'acoustic-uav-detector';
       </p>
 
       <nav class="mt-16 pt-8 border-t border-bg-3/60 grid gap-4 sm:grid-cols-2">
-        <a href={`/projects/${prev.slug}/`} class="group">
+        <a href={`${base}projects/${prev.slug}/`} class="group">
           <div class="text-xs text-ink-3 mb-1">← Previous</div>
           <div class="text-ink-0 group-hover:text-warm transition-colors">{prev.title}</div>
         </a>
-        <a href={`/projects/${next.slug}/`} class="group sm:text-right">
+        <a href={`${base}projects/${next.slug}/`} class="group sm:text-right">
           <div class="text-xs text-ink-3 mb-1">Next →</div>
           <div class="text-ink-0 group-hover:text-warm transition-colors">{next.title}</div>
         </a>
