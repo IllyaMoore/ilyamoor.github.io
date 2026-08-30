@@ -1,0 +1,42 @@
+---
+// Small decorative audio-waveform SVG — used as an accent on Acoustic UAV
+// content, references the actual subject matter (mic input).
+interface Props {
+  class?: string;
+  bars?: number;
+}
+const { class: className = '', bars = 40 } = Astro.props;
+
+// Deterministic pseudo-random heights so the waveform looks organic but
+// doesn't shift between renders. Simple LCG.
+let seed = 7331;
+const rand = () => {
+  seed = (seed * 9301 + 49297) % 233280;
+  return seed / 233280;
+};
+const heights = Array.from({ length: bars }, (_, i) => {
+  const envelope = Math.sin((i / bars) * Math.PI); // taper the ends
+  return 0.15 + rand() * 0.65 * envelope;
+});
+---
+<svg
+  viewBox={`0 0 ${bars * 4} 40`}
+  preserveAspectRatio="none"
+  class:list={['block', className]}
+  aria-hidden="true"
+>
+  {heights.map((h, i) => {
+    const barH = h * 36;
+    const y = 20 - barH / 2;
+    return (
+      <rect
+        x={i * 4 + 1}
+        y={y}
+        width={2}
+        height={barH}
+        fill="currentColor"
+        rx={0.5}
+      />
+    );
+  })}
+</svg>

@@ -1,0 +1,22 @@
+---
+interface Props {
+  class?: string;
+  size?: 'xs' | 'sm' | 'md';
+}
+const { class: className = '', size = 'sm' } = Astro.props;
+const sz = {
+  xs: 'h-2.5 w-[15px]',
+  sm: 'h-3 w-[18px]',
+  md: 'h-4 w-6',
+}[size];
+---
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 3 2"
+  class:list={['inline-block rounded-[1px] border border-bg-3/60 shadow-[0_0_0_0.5px_rgba(0,0,0,0.3)]', sz, className]}
+  aria-label="Ukraine"
+  role="img"
+>
+  <rect width="3" height="1" fill="#0057B7"/>
+  <rect y="1" width="3" height="1" fill="#FFDD00"/>
+</svg>

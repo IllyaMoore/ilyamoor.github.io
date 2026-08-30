@@ -1,0 +1,116 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Waveform from '../../components/Waveform.astro';
+import { projects } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
+}
+
+const { project } = Astro.props;
+const idx = projects.findIndex((p) => p.slug === project.slug);
+const prev = projects[(idx - 1 + projects.length) % projects.length];
+const next = projects[(idx + 1) % projects.length];
+
+const statusLabel = {
+  shipping: 'Shipping',
+  'in-dev': 'In development',
+  research: 'Research',
+  archived: 'Archived',
+}[project.status];
+
+const isAcoustic = project.slug === 'acoustic-uav-detector';
+---
+<Layout title={`${project.title} — Illia Nanarov`} description={project.summary}>
+  <article class="pt-16 sm:pt-20">
+    <a href="/#work" class="inline-flex items-center gap-2 mb-14 text-sm text-ink-2 hover:text-ink-0 transition-colors">
+      <span aria-hidden="true">←</span> Back
+    </a>
+
+    <header class="mb-14 max-w-3xl">
+      <p class="text-sm text-ink-3 mb-6 flex flex-wrap items-center gap-x-2">
+        <span class="text-warm tabular-nums">{project.year}</span>
+        <span class="text-bg-3">·</span>
+        {project.domain && <><span>{project.domain}</span><span class="text-bg-3">·</span></>}
+        <span>{statusLabel}</span>
+      </p>
+      <h1 class="text-5xl sm:text-6xl md:text-7xl font-semibold text-ink-0 tracking-[-0.025em] leading-[1.02]">
+        {project.title}
+      </h1>
+      {isAcoustic && (
+        <div class="mt-6 max-w-md text-warm/60">
+          <Waveform bars={64} class="h-10 w-full" />
+        </div>
+      )}
+      <p class="mt-6 text-sm text-ink-2">{project.role}</p>
+      <p class="mt-10 text-xl sm:text-2xl text-ink-0 leading-[1.5]">
+        {project.summary}
+      </p>
+    </header>
+
+    {project.images && project.images.length > 0 && (
+      <div class="grid gap-4 mb-14 max-w-4xl">
+        {project.images.map((img) => (
+          <img
+            src={`/projects/${img}`}
+            alt={project.title}
+            loading="lazy"
+            class="w-full rounded-sm border border-bg-3 bg-bg-1"
+          />
+        ))}
+      </div>
+    )}
+
+    <div class="max-w-2xl">
+      <p class="text-ink-1 leading-[1.75] whitespace-pre-line text-base sm:text-[1.0625rem]">
+        {project.description}
+      </p>
+
+      {(project.github || project.liveUrl) && (
+        <div class="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-base">
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link-underline text-ink-0"
+            >
+              Source code <span aria-hidden="true">↗</span>
+            </a>
+          )}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link-underline text-ink-1"
+            >
+              Live <span aria-hidden="true">↗</span>
+            </a>
+          )}
+        </div>
+      )}
+
+      <p class="mt-16 pt-6 border-t border-bg-3/60 text-sm text-ink-3">
+        <span class="text-warm mr-2">Built with</span>
+        {project.stack.map((t, i) => (
+          <>
+            {i > 0 && <span class="text-bg-3 mx-1.5">·</span>}
+            <span class="text-ink-1">{t}</span>
+          </>
+        ))}
+      </p>
+
+      <nav class="mt-16 pt-8 border-t border-bg-3/60 grid gap-4 sm:grid-cols-2">
+        <a href={`/projects/${prev.slug}/`} class="group">
+          <div class="text-xs text-ink-3 mb-1">← Previous</div>
+          <div class="text-ink-0 group-hover:text-warm transition-colors">{prev.title}</div>
+        </a>
+        <a href={`/projects/${next.slug}/`} class="group sm:text-right">
+          <div class="text-xs text-ink-3 mb-1">Next →</div>
+          <div class="text-ink-0 group-hover:text-warm transition-colors">{next.title}</div>
+        </a>
+      </nav>
+    </div>
+  </article>
+</Layout>

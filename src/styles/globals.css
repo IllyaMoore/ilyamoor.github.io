@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background: theme('colors.bg.0');
+    color: theme('colors.ink.0');
+    font-family: theme('fontFamily.sans');
+    font-feature-settings: 'ss01', 'cv11', 'cv02';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    /*
+     * Split ambient: left 60% cool blue, right 40% warm amber.
+     * Radials are large & soft so the split reads as a mood, not a hard line.
+     * Fixed to viewport — persists as you scroll.
+     */
+    background:
+      radial-gradient(ellipse 65% 75% at 15% 25%, rgba(102, 192, 244, 0.13), transparent 60%),
+      radial-gradient(ellipse 55% 90% at 92% 30%, rgba(245, 185, 66, 0.22), transparent 55%),
+      radial-gradient(circle at 105% 55%, rgba(245, 185, 66, 0.10), transparent 45%),
+      theme('colors.bg.0');
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: rgba(245, 185, 66, 0.3);
+    color: theme('colors.ink.0');
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.warm.DEFAULT');
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: theme('colors.bg.0'); }
+  ::-webkit-scrollbar-thumb {
+    background: theme('colors.bg.3');
+    border-radius: 2px;
+    border: 2px solid theme('colors.bg.0');
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(245, 185, 66, 0.5); }
+}
+
+@layer components {
+  /* Link underline — thin muted line, warms up on hover. */
+  .link-underline {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    text-decoration-color: theme('colors.bg.3');
+    transition: text-decoration-color 180ms ease, color 180ms ease;
+  }
+  .link-underline:hover {
+    text-decoration-color: theme('colors.warm.DEFAULT');
+    color: theme('colors.warm.DEFAULT');
+  }
+
+  /* Marker highlight — like a highlighter pen. For place names, key nouns. */
+  .marker {
+    background: linear-gradient(180deg, transparent 62%, rgba(245, 185, 66, 0.28) 62%);
+    padding: 0 0.15em;
+  }
+
+  /* Section title accent — amber vertical bar to the left. */
+  .section-mark::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: theme('colors.warm.DEFAULT');
+    margin-bottom: 0.9rem;
+  }
+
+  /* Featured card — amber left border. */
+  .featured-mark {
+    position: relative;
+  }
+  .featured-mark::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    width: 3px;
+    background: theme('colors.warm.DEFAULT');
+    z-index: 1;
+  }
+
+  /* Blinking cursor — terminal-style, warm. */
+  .cursor-blink::after {
+    content: '';
+    display: inline-block;
+    width: 0.5em;
+    height: 0.9em;
+    background: theme('colors.warm.DEFAULT');
+    margin-left: 0.15em;
+    vertical-align: -0.05em;
+    animation: cursor-blink 1s steps(2) infinite;
+  }
+  @keyframes cursor-blink {
+    50% { opacity: 0; }
+  }
+
+  /* "Now" status chip — small amber marker. */
+  .now-strip {
+    position: relative;
+    padding-left: 1rem;
+  }
+  .now-strip::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.35rem;
+    width: 4px; height: calc(100% - 0.7rem);
+    background: theme('colors.warm.DEFAULT');
+    border-radius: 1px;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: reveal 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes reveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal-1 { animation-delay: 40ms; }
+  .reveal-2 { animation-delay: 120ms; }
+  .reveal-3 { animation-delay: 200ms; }
+  .reveal-4 { animation-delay: 280ms; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .cursor-blink::after { animation: none !important; opacity: 1; transform: none; }
+}

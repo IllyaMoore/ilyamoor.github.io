@@ -1,0 +1,94 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  variant?: 'large' | 'medium';
+}
+const { project, variant = 'medium' } = Astro.props;
+
+const href = `/projects/${project.slug}/`;
+const hasCover = project.images && project.images.length > 0;
+const isFeatured = variant === 'large';
+---
+<a
+  href={href}
+  class:list={[
+    'group relative block rounded-sm border border-bg-3 bg-bg-1 hover:bg-bg-2 transition-colors overflow-hidden',
+    isFeatured && 'featured-mark md:grid md:grid-cols-[1.3fr_1fr]',
+  ]}
+>
+  {hasCover && (
+    <div
+      class:list={[
+        'relative bg-bg-2 overflow-hidden',
+        isFeatured
+          ? 'border-b border-bg-3 md:border-b-0 md:border-r md:min-h-[340px]'
+          : 'aspect-[16/10] border-b border-bg-3',
+      ]}
+    >
+      <img
+        src={`/projects/${project.images![0]}`}
+        alt={project.title}
+        loading="lazy"
+        class="h-full w-full object-cover opacity-95 group-hover:opacity-100 transition-opacity duration-500"
+      />
+    </div>
+  )}
+
+  <div
+    class:list={[
+      'flex flex-col',
+      isFeatured ? 'p-7 sm:p-9 md:p-10' : 'p-6',
+    ]}
+  >
+    <div class="flex items-baseline justify-between gap-4 mb-2">
+      <h3
+        class:list={[
+          'font-semibold text-ink-0 group-hover:text-accent transition-colors leading-[1.15] tracking-tight',
+          isFeatured ? 'text-3xl' : 'text-xl',
+        ]}
+      >
+        {project.title}
+      </h3>
+      <span class={`shrink-0 text-xs tabular-nums ${isFeatured ? 'text-warm' : 'text-ink-3'}`}>
+        {project.year}
+      </span>
+    </div>
+
+    <p class="text-sm text-ink-2 mb-4">
+      {project.role}
+      {project.domain && (
+        <>
+          <span class="mx-1.5 text-bg-3">·</span>
+          <span>{project.domain}</span>
+        </>
+      )}
+    </p>
+
+    <p
+      class:list={[
+        'text-ink-1 leading-relaxed',
+        isFeatured ? 'text-base sm:text-[1.0625rem]' : 'text-sm sm:text-[0.9375rem]',
+      ]}
+    >
+      {project.summary}
+    </p>
+
+    <div class="mt-6 flex flex-wrap gap-x-3 gap-y-1 text-xs text-ink-3">
+      {project.stack.slice(0, isFeatured ? 6 : 4).map((t, i) => (
+        <>
+          {i > 0 && <span class="text-bg-3">·</span>}
+          <span>{t}</span>
+        </>
+      ))}
+    </div>
+  </div>
+
+  <span
+    aria-hidden="true"
+    class="pointer-events-none absolute top-4 right-4 text-ink-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+  >
+    ↗
+  </span>
+</a>

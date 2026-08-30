@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { selected, research, current } from '../data/projects';
+---
+<Layout>
+  <Hero />
+
+  <section id="work" class="pt-16 sm:pt-24 scroll-mt-24">
+    <SectionHeader title="Selected work" />
+    <div class="grid gap-5 sm:gap-6">
+      <ProjectCard project={selected[0]!} variant="large" />
+      <div class="grid gap-5 sm:gap-6 md:grid-cols-2">
+        {selected.slice(1).map((p) => <ProjectCard project={p} variant="medium" />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-24 sm:pt-32">
+    <SectionHeader title="Research" />
+    <div class="grid gap-5 sm:gap-6 md:grid-cols-2">
+      {research.map((p) => <ProjectCard project={p} variant="medium" />)}
+    </div>
+  </section>
+
+  <section class="pt-24 sm:pt-32">
+    <SectionHeader title="Current" />
+    <div class="grid gap-5 sm:gap-6 md:grid-cols-2">
+      {current.map((p) => <ProjectCard project={p} variant="medium" />)}
+    </div>
+  </section>
+
+  <section class="pt-28 sm:pt-36 pb-4 max-w-2xl">
+    <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold text-ink-0 tracking-[-0.02em] leading-[1.05] mb-6">
+      Get in touch
+    </h2>
+    <p class="text-lg text-ink-1 leading-relaxed">
+      I take on select consulting and contract work — particularly
+      AI-adjacent, DevOps, or defence-tech. Send a short brief and
+      I'll reply within a day.
+    </p>
+    <div class="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 text-base">
+      <a href="mailto:illiamoor.work@gmail.com" class="link-underline text-ink-0">
+        illiamoor.work@gmail.com
+      </a>
+      <a href="https://github.com/IllyaMoore" target="_blank" rel="noopener noreferrer" class="link-underline text-ink-1">
+        github.com/IllyaMoore
+      </a>
+    </div>
+  </section>
+</Layout>
