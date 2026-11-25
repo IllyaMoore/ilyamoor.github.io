@@ -9,14 +9,17 @@ const { project, variant = 'medium' } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
 const href = `${base}projects/${project.slug}/`;
-const hasCover = project.images && project.images.length > 0;
+const hasCover = !!project.images && project.images.length > 0;
 const isFeatured = variant === 'large';
+const statusDot = project.status === 'shipping' ? 'bg-signal-go' : 'bg-signal-warn';
+const statusText = project.status === 'shipping' ? 'Done' : 'In progress';
 ---
 <a
   href={href}
   class:list={[
-    'group relative block rounded-sm border border-bg-3 bg-bg-1 hover:bg-bg-2 transition-colors overflow-hidden',
-    isFeatured && 'featured-mark md:grid md:grid-cols-[1.3fr_1fr]',
+    'group relative flex flex-col rounded-lg border border-bg-3 bg-bg-1/80 overflow-hidden',
+    'transition-all duration-300 hover:border-warm/50 hover:bg-bg-2 hover:-translate-y-0.5',
+    isFeatured && 'md:grid md:grid-cols-[1.2fr_1fr]',
   ]}
 >
   {hasCover && (
@@ -32,58 +35,50 @@ const isFeatured = variant === 'large';
         src={`${base}projects/${project.images![0]}`}
         alt={project.title}
         loading="lazy"
-        class="h-full w-full object-cover opacity-95 group-hover:opacity-100 transition-opacity duration-500"
+        class="h-full w-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-[1.02] transition-all duration-500"
       />
     </div>
   )}
 
-  <div
-    class:list={[
-      'flex flex-col',
-      isFeatured ? 'p-7 sm:p-9 md:p-10' : 'p-6',
-    ]}
-  >
-    <div class="flex items-baseline justify-between gap-4 mb-2">
-      <h3
-        class:list={[
-          'font-semibold text-ink-0 group-hover:text-accent transition-colors leading-[1.15] tracking-tight',
-          isFeatured ? 'text-3xl' : 'text-xl',
-        ]}
-      >
-        {project.title}
-      </h3>
-      <span class={`shrink-0 text-xs tabular-nums ${isFeatured ? 'text-warm' : 'text-ink-3'}`}>
-        {project.year}
+  <div class:list={['flex flex-1 flex-col', isFeatured ? 'p-7 sm:p-9 md:p-10' : 'p-6']}>
+    <div class="flex items-center justify-between gap-4 mb-4 font-mono text-xs">
+      <span class="text-warm uppercase tracking-widest">{project.domain}</span>
+      <span class="flex items-center gap-1.5 text-ink-3">
+        <span class={`h-1.5 w-1.5 rounded-full ${statusDot}`}></span>
+        {statusText} · {project.year}
       </span>
     </div>
 
-    <p class="text-sm text-ink-2 mb-4">
-      {project.role}
-      {project.domain && (
-        <>
-          <span class="mx-1.5 text-bg-3">·</span>
-          <span>{project.domain}</span>
-        </>
-      )}
-    </p>
+    <h3
+      class:list={[
+        'font-semibold text-ink-0 group-hover:text-warm transition-colors leading-[1.15] tracking-tight',
+        isFeatured ? 'text-3xl sm:text-4xl' : 'text-xl',
+      ]}
+    >
+      {project.title}
+    </h3>
+    <p class="mt-1.5 text-sm text-ink-2">{project.role}</p>
 
     <p
       class:list={[
-        'text-ink-1 leading-relaxed',
-        isFeatured ? 'text-base sm:text-[1.0625rem]' : 'text-sm sm:text-[0.9375rem]',
+        'mt-4 text-ink-1 leading-relaxed',
+        isFeatured ? 'text-base sm:text-lg' : 'text-sm sm:text-[0.9375rem]',
       ]}
     >
       {project.summary}
     </p>
 
-    <div class="mt-6 flex flex-wrap gap-x-3 gap-y-1 text-xs text-ink-3">
-      {project.stack.slice(0, isFeatured ? 6 : 4).map((t, i) => (
-        <>
-          {i > 0 && <span class="text-bg-3">·</span>}
-          <span>{t}</span>
-        </>
+    {!hasCover && (
+      <div class="mt-4 space-y-3 text-sm text-ink-2 leading-relaxed">
+        {project.description.split('\n\n').map((para) => <p>{para}</p>)}
+      </div>
+    )}
+
+    <ul class="mt-auto pt-6 flex flex-wrap gap-1.5">
+      {project.stack.slice(0, isFeatured ? 6 : 4).map((t) => (
+        <li class="rounded border border-bg-3 bg-bg-0/50 px-2 py-0.5 font-mono text-[0.6875rem] text-ink-2">{t}</li>
       ))}
-    </div>
+    </ul>
   </div>
 
   <span

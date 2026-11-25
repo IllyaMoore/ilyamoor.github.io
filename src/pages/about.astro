@@ -1,84 +1,44 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import FlagUA from '../components/FlagUA.astro';
-
-const experience = [
-  { role: 'Co-developer',   org: 'StoryFunnels',         period: '2024 → present', note: 'Task module + CI/CD' },
-  { role: 'Solo developer', org: 'Command Center',       period: '2024 → present', note: 'Self-hosted AI assistant' },
-  { role: 'ML/AI student',  org: 'Kyiv-Mohyla Academy',  period: '2022 → 2026',    note: 'BSc' },
-];
+import ContactLinks from '../components/ContactLinks.astro';
+import { summary, wants, doesNotWant } from '../data/profile';
 ---
 <Layout title="About — Illia Nanarov">
-  <section class="pt-20 sm:pt-28 max-w-2xl">
-    <h1 class="text-5xl sm:text-6xl md:text-7xl font-semibold text-ink-0 tracking-[-0.025em] leading-[1.02]">
+  <section class="pt-20 sm:pt-28 max-w-3xl">
+    <h1 class="text-5xl sm:text-6xl font-semibold text-ink-0 tracking-[-0.025em] leading-[1.02]">
       About
     </h1>
 
-    <div class="mt-10 space-y-5 text-lg text-ink-1 leading-[1.65]">
+    <div class="mt-10 space-y-5 text-lg text-ink-1 leading-[1.7]">
+      <p>I'm Illia, a DevOps engineer from Kyiv, Ukraine.</p>
+      <p>{summary}</p>
       <p>
-        I'm Illia. <span class="marker text-ink-0">Kyiv</span> and
-        <span class="marker text-ink-0">Mykolaiv</span>
-        <FlagUA size="xs" class="mx-0.5 -translate-y-0.5" />, industry for a while now.
-      </p>
-      <p>
-        I ship product code, own delivery pipelines, and build hardware after hours. What ends up
-        on this site is what I think you can actually judge me on — if a project isn't here, it
-        wasn't good enough.
-      </p>
-      <p>
-        My taste: ship the smallest thing that answers the real question, prefer boring
-        infrastructure over novel infrastructure, and don't confuse an AI code review with the
-        human one it's supposed to accelerate.
+        Day to day: servers with Terraform, deployments with Docker Compose and GitHub Actions,
+        Kubernetes with ArgoCD, moving apps between cloud providers, database migrations, and
+        keeping cloud costs down.
       </p>
     </div>
 
-    <div class="mt-20">
-      <h2 class="section-mark text-2xl sm:text-3xl font-semibold text-ink-0 tracking-tight mb-8">Experience</h2>
-      <div class="divide-y divide-bg-3/60">
-        {experience.map((e) => (
-          <div class="py-4 grid grid-cols-[auto_1fr] sm:grid-cols-[9rem_1fr_auto] gap-x-6 gap-y-1 items-baseline">
-            <span class="text-sm text-warm tabular-nums whitespace-nowrap">{e.period}</span>
-            <div>
-              <div class="text-ink-0">{e.org}</div>
-              <div class="text-sm text-ink-2">{e.role}</div>
-            </div>
-            <span class="hidden sm:block text-sm text-ink-3">{e.note}</span>
-          </div>
-        ))}
+    <div class="mt-16 grid gap-6 sm:grid-cols-2">
+      <div class="rounded-lg border border-bg-3 bg-bg-1/70 p-6">
+        <h2 class="font-mono text-hud uppercase text-warm">What I'm looking for</h2>
+        <ul class="mt-4 space-y-2.5 text-ink-1">
+          {wants.map((w) => <li class="relative pl-5"><span class="absolute left-0 text-signal-go">+</span>{w}</li>)}
+        </ul>
+      </div>
+      <div class="rounded-lg border border-bg-3 bg-bg-1/70 p-6">
+        <h2 class="font-mono text-hud uppercase text-warm">Not a fit</h2>
+        <ul class="mt-4 space-y-2.5 text-ink-1">
+          {doesNotWant.map((w) => <li class="relative pl-5"><span class="absolute left-0 text-signal-err">−</span>{w}</li>)}
+        </ul>
       </div>
     </div>
 
-    <div class="mt-20">
-      <h2 class="section-mark text-2xl sm:text-3xl font-semibold text-ink-0 tracking-tight mb-4">Stack</h2>
-      <p class="text-ink-1 leading-[1.7]">
-        I write <span class="text-ink-0">TypeScript</span>, <span class="text-ink-0">Python</span>,
-        and <span class="text-ink-0">Rust</span>. Full-stack work in
-        <span class="text-ink-0">React</span> / <span class="text-ink-0">Next.js</span> and
-        <span class="text-ink-0">Node</span>. Databases: mostly Postgres, sometimes SQLite.
-        Delivery on <span class="text-ink-0">Docker</span> and
-        <span class="text-ink-0">GitHub Actions</span>, with <span class="text-ink-0">Playwright</span>
-        and <span class="text-ink-0">Vitest</span> keeping the lights on.
-        On the ML side <span class="text-ink-0">PyTorch</span>, plus MCP and agent SDKs for the
-        LLM-adjacent product work.
-      </p>
-    </div>
+    <p class="mt-6 text-ink-1">Happy to hear from DefTech / MilTech companies.</p>
 
-    <div class="mt-20">
-      <h2 class="section-mark text-2xl sm:text-3xl font-semibold text-ink-0 tracking-tight mb-4">Now</h2>
-      <ul class="now-strip space-y-2 text-ink-1 leading-relaxed">
-        <li>Shipping the kanban module &amp; delivery pipeline at StoryFunnels.</li>
-        <li>Wiring up real-time multi-agent sessions in Command Center.</li>
-        <li>Assembly &amp; bring-up on the acoustic UAV detector.</li>
-      </ul>
-    </div>
-
-    <div class="mt-20 flex flex-wrap items-center gap-x-8 gap-y-3 text-base">
-      <a href="mailto:illiamoor.work@gmail.com" class="link-underline text-ink-0">
-        illiamoor.work@gmail.com
-      </a>
-      <a href="https://github.com/IllyaMoore" target="_blank" rel="noopener noreferrer" class="link-underline text-ink-1">
-        github.com/IllyaMoore
-      </a>
+    <div class="mt-16">
+      <h2 class="text-2xl sm:text-3xl font-semibold text-ink-0 tracking-tight mb-6">Contact</h2>
+      <ContactLinks layout="grid" />
     </div>
   </section>
 </Layout>

@@ -1,39 +1,38 @@
 ---
-import FlagUA from './FlagUA.astro';
+import ContactLinks from './ContactLinks.astro';
+
+const facts = [
+  { k: 'Role',        v: 'DevOps engineer' },
+  { k: 'Location',    v: 'Kyiv, Ukraine' },
+  { k: 'Main tools',  v: 'Terraform, Hetzner, AWS, Docker, GitHub Actions' },
+];
 ---
-<section class="pt-24 sm:pt-32 lg:pt-40 pb-20 sm:pb-28">
-  <h1 class="reveal reveal-1 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold tracking-[-0.025em] leading-[0.98]">
-    Illia Nanarov<span class="cursor-blink"></span>
-  </h1>
+<section class="pt-16 sm:pt-24 lg:pt-28 pb-12 sm:pb-20 grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16 items-center">
+  <div>
+    <p class="reveal reveal-1 font-mono text-sm text-warm">DevOps engineer</p>
+    <h1 class="reveal reveal-1 mt-4 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold tracking-[-0.03em] leading-[0.95]">
+      Illia<br />Nanarov
+    </h1>
 
-  <div class="reveal reveal-2 mt-10 max-w-2xl space-y-5 text-lg sm:text-xl text-ink-1 leading-[1.55]">
-    <p>
-      <span class="text-warm font-medium">Full-stack devops engineer</span>
-      based between
-      <span class="marker text-ink-0">Kyiv</span> and
-      <span class="marker text-ink-0">Mykolaiv</span>
-      <FlagUA size="xs" class="mx-0.5 -translate-y-0.5" />.
-    </p>
-    <p class="text-ink-2">
-      Work is below.
-    </p>
+    <div class="reveal reveal-3 mt-10">
+      <ContactLinks />
+    </div>
   </div>
 
-  <div class="reveal reveal-3 mt-10 flex flex-wrap items-center gap-x-8 gap-y-2 text-base">
-    <a href="mailto:illiamoor.work@gmail.com" class="link-underline text-ink-0">
-      illiamoor.work@gmail.com
-    </a>
-    <a href="https://github.com/IllyaMoore" target="_blank" rel="noopener noreferrer" class="link-underline text-ink-1">
-      github.com/IllyaMoore
-    </a>
-  </div>
-
-  <div class="reveal reveal-4 mt-16 max-w-md">
-    <div class="text-xs font-mono uppercase tracking-widest text-warm mb-3">Now</div>
-    <ul class="now-strip space-y-1.5 text-ink-1 text-sm sm:text-base">
-      <li>Bring-up on the acoustic UAV array.</li>
-      <li>Kanban module + CI/CD at StoryFunnels.</li>
-      <li>Multi-agent sessions in Command Center.</li>
-    </ul>
+  <div class="reveal reveal-3 rounded-lg border border-bg-3 bg-bg-1/80 overflow-hidden">
+    <div class="flex items-center gap-2 border-b border-bg-3 px-5 py-3 font-mono text-xs text-ink-3">
+      <span class="h-2 w-2 rounded-full bg-bg-3"></span>
+      <span class="h-2 w-2 rounded-full bg-bg-3"></span>
+      <span class="h-2 w-2 rounded-full bg-bg-3"></span>
+      <span class="ml-2">about.txt</span>
+    </div>
+    <dl class="divide-y divide-bg-3/70">
+      {facts.map((f) => (
+        <div class="grid grid-cols-[7.5rem_1fr] gap-4 px-5 py-3.5">
+          <dt class="font-mono text-xs uppercase tracking-wider text-ink-3 pt-0.5">{f.k}</dt>
+          <dd class="text-ink-0">{f.v}</dd>
+        </div>
+      ))}
+    </dl>
   </div>
 </section>

@@ -1,0 +1,42 @@
+---
+import { contacts } from '../data/contacts';
+
+interface Props {
+  layout?: 'row' | 'grid';
+  class?: string;
+}
+const { layout = 'row', class: cls } = Astro.props;
+---
+{layout === 'row' ? (
+  <ul class:list={['flex flex-wrap items-center gap-x-6 gap-y-2 text-base', cls]}>
+    {contacts.map((c) => (
+      <li>
+        <a
+          href={c.href}
+          target={c.external ? '_blank' : undefined}
+          rel={c.external ? 'noopener noreferrer' : undefined}
+          class="link-underline text-ink-1"
+        >{c.label}</a>
+      </li>
+    ))}
+  </ul>
+) : (
+  <ul class:list={['grid gap-3 sm:grid-cols-2', cls]}>
+    {contacts.map((c) => (
+      <li>
+        <a
+          href={c.href}
+          target={c.external ? '_blank' : undefined}
+          rel={c.external ? 'noopener noreferrer' : undefined}
+          class="group flex items-center justify-between gap-4 rounded-lg border border-bg-3 bg-bg-1/70 px-5 py-4 hover:border-warm/60 hover:bg-bg-2 transition-colors"
+        >
+          <span>
+            <span class="block font-mono text-hud uppercase text-ink-3">{c.label}</span>
+            <span class="block mt-1 text-ink-0 break-all">{c.value}</span>
+          </span>
+          <span aria-hidden="true" class="text-ink-3 group-hover:text-warm transition-colors">↗</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+)}

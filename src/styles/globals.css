@@ -21,9 +21,8 @@
      * Fixed to viewport — persists as you scroll.
      */
     background:
-      radial-gradient(ellipse 65% 75% at 15% 25%, rgba(102, 192, 244, 0.13), transparent 60%),
-      radial-gradient(ellipse 55% 90% at 92% 30%, rgba(245, 185, 66, 0.22), transparent 55%),
-      radial-gradient(circle at 105% 55%, rgba(245, 185, 66, 0.10), transparent 45%),
+      radial-gradient(ellipse 70% 50% at 10% 0%, rgba(102, 192, 244, 0.08), transparent 60%),
+      radial-gradient(ellipse 50% 60% at 95% 10%, rgba(245, 185, 66, 0.10), transparent 60%),
       theme('colors.bg.0');
     background-attachment: fixed;
     min-height: 100vh;
